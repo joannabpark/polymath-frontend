@@ -20,9 +20,9 @@ export const fetchSkillsSuccess = (skills) => {
 //   }
 // }
 
-// export const deleteNote = (id) => {
-//     return {
-//       type: 'DELETE_NOTE',
-//       id: id
-//     }
-  // }
+export const removeSkill = (id) => {
+    return {
+      type: 'REMOVE_SKILL',
+      id: id
+    }
+  }

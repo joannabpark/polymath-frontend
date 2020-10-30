@@ -14,8 +14,8 @@ const skills = (state=initialState, action) => {
         //     return notes
         // case "EDIT_NOTE_SUCCESS":
         // case "POST_NOTE_SUCCESS":
-        // case "DELETE_NOTE":
-        //     return state.filter(n => n.id !== action.id)
+        case "REMOVE_SKILL":
+            return state.filter(n => n.id !== action.id)
         default:
             return state
     }

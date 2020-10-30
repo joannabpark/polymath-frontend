@@ -1,7 +1,23 @@
 import React from 'react'
 import { Button, Card } from 'semantic-ui-react'
+import { removeSkill } from '../actions/skills'
+import { connect } from 'react-redux'
 
 class MySkills extends React.Component {
+
+  removeSkill = (id) => {
+    let deleteId = (this.props.user_skills.filter(arr => arr.skill_id === id))[0].id
+    const reqObj = {
+        method: 'DELETE', 
+      }
+
+    fetch (`http://localhost:3000/user_skills/${deleteId}`, reqObj)
+    .then(resp => resp.json())
+    .then(data => {
+        this.props.removeSkill(deleteId)
+        // this.props.history.push('/myprofile')
+    })
+}
 
     render() {
         return ( 
@@ -17,10 +33,10 @@ class MySkills extends React.Component {
               <Card.Content extra>
                 <div className='ui two buttons'>
                   <Button basic color='blue'>
-                    sign up
+                    edit
                   </Button>
-                  <Button basic color='purple'>
-                    message
+                  <Button basic color='purple' onClick={() => this.removeSkill(this.props.skill.id)}>
+                    delete
                   </Button>
                 </div>
               </Card.Content>
@@ -29,5 +45,9 @@ class MySkills extends React.Component {
               )
          }
   }
+
+  const mapDispatchToProps = {
+    removeSkill
+  }
   
-export default MySkills
+  export default connect(null, mapDispatchToProps)(MySkills);

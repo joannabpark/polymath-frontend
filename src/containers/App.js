@@ -23,7 +23,7 @@ class App extends React.Component {
           <Route exact path="/viewprofile/:id" component={ViewProfile} />
           {/* <Route exact path="/newuser" component={NewUser} /> */}
           {/* <Route exact path="/thankyou" component={ThankYou} /> */}
-          {/* <Route exact path="/" component={Login} /> */}
+          <Route exact path="/" component={Login} />
           {/* <Route path="*" component={ErrorPage} /> */}
         </Switch>
       </div>     

@@ -1,19 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux'
 // import { Link } from "react-router-dom";
-// import { deleteNote } from '../actions/notes'
+// import { deleteUser } from '../actions/notes'
 import moment from 'moment';
-import { Grid, Card, Image, Icon, Button } from 'semantic-ui-react'
+import { Grid, Card, Image, Icon, Button, Modal } from 'semantic-ui-react'
 import MySkills from './MySkills'
+import Popup from 'reactjs-popup';
+// import 'reactjs-popup/dist/index.css';
 
 class MyProfile extends React.Component {
 
-    // handleClick = () => {
 
-    // }
-
-
-// deleteNote = (id) => {
+// deleteUser = (id) => {
 //     const reqObj = {
 //         method: 'DELETE', 
 //       }
@@ -27,12 +25,16 @@ class MyProfile extends React.Component {
 // }
 
 renderMySkills = () => {
-    return this.props.user.skills.map(skill => (
-      <MySkills skill={skill} />
-    ))
+    return this.props.user.skills.map((skill, index) => {
+     return <MySkills skill={skill} key={index} user_skills={this.props.user.user_skills} />
+    })
  }
 
   render() { 
+    const token = localStorage.getItem('app_token')
+    if (!token) {
+      this.props.history.push('/login')
+    } else {
     return (
             <Grid divided="vertically">
                 <Grid.Row>
@@ -49,8 +51,9 @@ renderMySkills = () => {
                                 </Card.Content>
                                 <Card.Content extra>
                                 <a>
-                                    <Icon name='user' />
-                                    22 Friends
+                                <Popup trigger={<button className='ui button'> edit profile</button>} position="right center">
+                                     <div>Popup content here !!</div>
+                                </Popup>
                                 </a>
                                 </Card.Content>
                             </Card>
@@ -75,7 +78,8 @@ renderMySkills = () => {
                 </Grid.Column>
             </Grid.Row>
         </Grid>
-     )
+       )
+    }
   }
 };
 
@@ -86,6 +90,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-    // deleteNote
+    // deleteUser
   }
+  
 export default connect(mapStateToProps, mapDispatchToProps)(MyProfile);
