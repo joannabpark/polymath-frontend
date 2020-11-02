@@ -25,3 +25,16 @@ export const loginSuccess = (user) => {
       user: user
     }
   }
+
+  export const editUserSuccess = (user) => {
+    return {
+        type: 'EDIT_USER_SUCCESS',
+        user: user
+    }
+  }
+  export const deleteUser = (user) => {
+    return {
+        type: 'DELETE_USER',
+        user: user
+    }
+  }

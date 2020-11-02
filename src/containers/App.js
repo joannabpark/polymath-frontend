@@ -6,6 +6,7 @@ import NavBar from '../components/NavBar';
 import SkillContainer from '../components/SkillContainer';
 import MyProfile from '../components/MyProfile';
 import ViewProfile from '../components/ViewProfile';
+import NewSkill from '../components/NewSkill';
 
 class App extends React.Component {
 
@@ -21,7 +22,7 @@ class App extends React.Component {
           <Route exact path="/login" component={Login} />
           <Route exact path="/myprofile" component={MyProfile} />
           <Route exact path="/viewprofile/:id" component={ViewProfile} />
-          {/* <Route exact path="/newuser" component={NewUser} /> */}
+          <Route exact path="/myprofile/newskill" component={NewSkill} />
           {/* <Route exact path="/thankyou" component={ThankYou} /> */}
           <Route exact path="/" component={Login} />
           {/* <Route path="*" component={ErrorPage} /> */}

@@ -7,6 +7,10 @@ const user = (state={}, action) => {
             return action.user
         case 'LOGOUT_SUCCESS':
             return {}
+        case 'EDIT_USER_SUCCESS':
+             return action.user
+        case "DELETE_USER":
+            return {}
         default:
             return state
     }

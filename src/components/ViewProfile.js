@@ -43,19 +43,21 @@ class ViewProfile extends React.Component {
                     <Card centered>
                         <Image src={this.props.userview.image_url} wrapped ui={false} />
                         <Card.Content>
-                        <Card.Header>{this.props.userview.full_name}</Card.Header>
+                        <Card.Header>{this.props.userview.first_name}</Card.Header>
                         <Card.Meta>
                             <span className='date'>Joined in {moment(this.props.userview.created_at).format('YYYY')}</span>
                         </Card.Meta>
                         <Card.Description>
+                             <a>{this.props.userview.email}</a>
+                            <br></br>
+                            <a>location: {this.props.userview.location}</a>
                         </Card.Description>
                         </Card.Content>
-                        <Card.Content extra>
+                        {/* <Card.Content extra>
                         <a>
-                            <Icon name='user' />
-                            22 Friends
+                        
                         </a>
-                        </Card.Content>
+                        </Card.Content> */}
                     </Card>
                     {/* <div className="ui animated button" > */}
                         {/* <Button animated='fade' as={Link} to={`/home/${this.state.note.id}/form`}>

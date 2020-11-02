@@ -6,23 +6,9 @@ export const fetchSkillsSuccess = (skills) => {
     }
   }
 
-// export const postNoteSuccess = (notes) => {
-//   return {
-//       type: 'POST_NOTE_SUCCESS',
-//       notes: notes
-//   }
-// }
-
-// export const editNoteSuccess = (notes) => {
-//   return {
-//       type: 'EDIT_NOTE_SUCCESS',
-//       notes: notes
-//   }
-// }
-
-export const removeSkill = (id) => {
+  export const addSkillSuccess = (skills) => {
     return {
-      type: 'REMOVE_SKILL',
-      id: id
+        type: 'ADD_SKILL_SUCCESS',
+        skill: skills
     }
   }
