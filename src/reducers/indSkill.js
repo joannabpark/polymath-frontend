@@ -3,7 +3,6 @@ const initialState = []
 const indSkill = (state=initialState, action) => {
     switch(action.type) {
         case "EDIT_SKILL_SUCCESS":
-            // return action.skills
         const editedSkill = state.map(a => {
                 if (a.id === action.indSkill.id) {
                       a = {
@@ -21,6 +20,9 @@ const indSkill = (state=initialState, action) => {
          case "DELETE_SKILL_SUCCESS":
              const newSkills = state.filter(obj => obj.id !== action.id)
              return newSkills
+          case "ADD_SKILL_SUCCESS":
+            //   debugger
+             return [...state, action.skill]
         case "CURRENT_USER":
             return action.user.skills
         default:

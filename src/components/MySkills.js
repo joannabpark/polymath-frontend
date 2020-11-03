@@ -53,7 +53,7 @@ handleSubmit = (e) => {
     .then(data => {
       console.log(data)
         this.props.editSkillSuccess(data)
-        debugger
+        // debugger
         this.props.history.push(`/myprofile`)
     })
 }
@@ -73,6 +73,7 @@ handleSubmit = (e) => {
 }
 
     render() {
+      // debugger
         return ( 
             // <Card.Group>
             <Card>

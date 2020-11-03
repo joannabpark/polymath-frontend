@@ -5,6 +5,7 @@ import search from './search';
 import userview from './userview';
 import indSkill from './indSkill';
 import lessons from './lessons';
+import givelessons from './givelessons';
 
 export default combineReducers({
     user,
@@ -12,5 +13,6 @@ export default combineReducers({
     userview,
     search,
     indSkill,
-    lessons
+    lessons,
+    givelessons
 })

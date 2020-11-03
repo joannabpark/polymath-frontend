@@ -9,8 +9,8 @@ const skills = (state=initialState, action) => {
             // const newNewArray = newArray.filter(obj => obj !== undefined)
             const skills = [...action.skills]
             return skills
-        case "ADD_SKILL_SUCCESS":
-            return [...state, action.skill]
+        // case "ADD_SKILL_SUCCESS":
+        //     return [...state, action.skill]
         // case "EDIT_SKILL_SUCCESS":
         default:
             return state

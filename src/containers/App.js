@@ -7,9 +7,10 @@ import SkillContainer from '../components/SkillContainer';
 import MyProfile from '../components/MyProfile';
 import ViewProfile from '../components/ViewProfile';
 import NewSkill from '../components/NewSkill';
-import EditSkill from '../components/EditSkill';
 import NewUser from '../components/NewUser';
 import MyLessons from '../components/MyLessons';
+import GiveLessons from '../components/GiveLessons';
+import ErrorPage from '../components/ErrorPage';
 
 class App extends React.Component {
 
@@ -25,12 +26,12 @@ class App extends React.Component {
           <Route exact path="/myprofile" component={MyProfile} />
           <Route exact path="/viewprofile/:id" component={ViewProfile} />
           <Route exact path="/myprofile/newskill" component={NewSkill} />
-          <Route exact path="/myprofile/editskill" component={EditSkill} />
           <Route exact path="/newuser" component={NewUser} />
-          <Route exact path="/myprofile/mylessons" component={MyLessons} />
+          <Route exact path="/myprofile/receivinglessons" component={MyLessons} />
+          <Route exact path="/myprofile/providinglessons" component={GiveLessons} />
           {/* <Route exact path="/thankyou" component={ThankYou} /> */}
           <Route exact path="/" component={Login} />
-          {/* <Route path="*" component={ErrorPage} /> */}
+          <Route path="*" component={ErrorPage} />
         </Switch>
       </div>     
       </BrowserRouter>

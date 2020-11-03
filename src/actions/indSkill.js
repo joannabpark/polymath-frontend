@@ -16,7 +16,14 @@ export const editSkillSuccess = (indSkill) => {
         id: id
       }
     }
-
+    
+    export const addSkillSuccess = (skills) => {
+      return {
+          type: 'ADD_SKILL_SUCCESS',
+          skill: skills
+      }
+    }
+    
     // export const thunkDeleteSkill = (id) => { 
     //   return function(dispatch) {
     //     fetch(`${URL}/${id}`, { method: 'DELETE' })

@@ -1,6 +1,5 @@
 import React from 'react'
 import { Button, Card, Form } from 'semantic-ui-react'
-import {Link} from 'react-router-dom'
 import Popup from 'reactjs-popup';
 import { newLessonSuccess } from '../actions/lessons'
 import { connect } from 'react-redux'
@@ -54,7 +53,7 @@ class ViewSkills extends React.Component {
               })
             } else {
               this.props.newLessonSuccess(data)
-              this.props.history.push(`/myprofile/mylessons`)
+              this.props.history.push(`/myprofile/receivinglessons`)
             }
           })
   }
@@ -74,22 +73,22 @@ class ViewSkills extends React.Component {
               <Card.Content extra>
                 {/* <div className='ui two buttons'> */}
                 <Popup trigger={<button className='ui button'>sign up</button>} position="bottom right">
-                                <Form onSubmit={this.handleSubmit}>
-                                    <Form.Group widths='equal'>
-                                        <input
-                                        as={<Form.Input />}
-                                            type="datetime-local" 
-                                            name="date" 
-                                            placeholder="date"
-                                             onChange={this.handleChange}
-                                        />
-                                        <div style={{textAlign: "center"}}>
+                        <Form onSubmit={this.handleSubmit}>
+                             <Form.Group widths='equal'>
+                                    <input
+                                     as={<Form.Input />}
+                                    type="datetime-local" 
+                                      name="date" 
+                                      placeholder="date"
+                                      onChange={this.handleChange}
+                                      />
+                                      <div style={{textAlign: "center"}}>
                                           <Button>Save</Button>
                                       </div>
-                                        </Form.Group>
-                                   </Form>
-                                     </Popup>
-                    <Button basic color='purple'>
+                             </Form.Group>
+                         </Form>
+                   </Popup>
+                   <Button basic color='purple'>
                     message
                   </Button>
                 {/* </div> */}
@@ -102,7 +101,8 @@ class ViewSkills extends React.Component {
   
   const mapStateToProps = (state) => {
     return {
-     user: state.user,
+    user: state.user,
+    skills: state.skills,
     lessons: state.lessons
     }
 }

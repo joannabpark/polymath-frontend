@@ -72,14 +72,14 @@ deleteUser = (id) => {
     .then(resp => resp.json())
     .then(data => {
         this.props.deleteUser(id)
-        debugger
+        // debugger
         this.props.history.push('/login')
     })
 }
 
 renderMySkills = () => {
     return this.props.indSkill.map((skill, index) => {
-     return <MySkills skill={skill} key={index} user_skills={this.props.user.user_skills} history={this.props.history} />
+     return <MySkills skill={skill} key={index} history={this.props.history} />
     })
  }
 
@@ -88,10 +88,7 @@ renderMySkills = () => {
 //  }
 
   render() { 
-    const token = localStorage.getItem('app_token')
-    if (!token) {
-      this.props.history.push('/login')
-    } else {
+ 
     return (
             <Grid divided="vertically">
                 <Grid.Row>
@@ -178,7 +175,8 @@ renderMySkills = () => {
                                 </Card.Content>
                                 <Card.Content extra>
                                      <div style={{textAlign: "center"}}>
-                                         <Button as={Link} to="/myprofile/mylessons">receiving lessons</Button>
+                                     <Button as={Link} to="/myprofile/providinglessons">providing lessons</Button>
+                                         <Button as={Link} to="/myprofile/receivinglessons">receiving lessons</Button>
                                      <Button onClick={() => this.deleteUser(this.props.user.id)}>delete account</Button>
                                       </div>
                                 </Card.Content>
@@ -236,7 +234,6 @@ renderMySkills = () => {
             </Grid.Row>
         </Grid>
        )
-    }
   }
 };
 

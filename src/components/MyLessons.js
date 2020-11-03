@@ -7,6 +7,8 @@ import moment from 'moment';
 import Lesson from './Lesson';
 
 class MyLessons extends React.Component {
+
+
     
     renderLessons = () => {
         // debugger
@@ -15,11 +17,10 @@ class MyLessons extends React.Component {
             ))
           }
 
-
     render(){
      return ( 
          <div>
-           <h4>Incompleted Lessons:</h4>
+           <h4>Incompleted Receiving Lessons:</h4>
              {this.renderLessons()}
          </div>
        )

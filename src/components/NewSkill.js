@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addSkillSuccess } from '../actions/skills'
+import { addSkillSuccess } from '../actions/indSkill'
 import { Container, Button, Grid, Form } from 'semantic-ui-react'
 
 class NewSkill extends React.Component {
@@ -46,7 +46,7 @@ class NewSkill extends React.Component {
               })
             } else {
               this.props.addSkillSuccess(data)
-              this.props.history.push(`/feed`)
+              this.props.history.push(`/myprofile`)
             }
           })
     }

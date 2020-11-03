@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { Link } from "react-router-dom";
 import moment from 'moment';
 import { fetchUserSuccess } from '../actions/userview';
-import { Grid, Card, Image, Icon, Button } from 'semantic-ui-react'
+import { Grid, Card, Image } from 'semantic-ui-react'
 import ViewSkills from './ViewSkills'
 
 class ViewProfile extends React.Component {
@@ -30,8 +29,12 @@ class ViewProfile extends React.Component {
     }
     
     renderSkills = () => {
-        debugger
-        return this.props.userview.skills.map((skill, index) => {
+        // debugger
+        // filtering of only viewing not signed up skills doesn't work
+        // let newArray = this.props.userview.providing_lessons.filter(obj => obj.provider_id === this.props.userview.id)       
+        // let id = parseInt(newArray.map(obj => obj.skill_id))
+        // let newNewArray = this.props.userview.skills.filter(skill => skill.id !== id)
+         return this.props.userview.skills.map((skill, index) => {
           return <ViewSkills skill={skill} key={index} history={this.props.history}/>
         })
      }
@@ -88,6 +91,7 @@ class ViewProfile extends React.Component {
 const mapStateToProps = (state) => {
     return {
     user: state.user,
+    lessons: state.lessons,
     userview: state.userview
     }
 }
