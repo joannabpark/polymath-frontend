@@ -6,7 +6,7 @@ import { Popup, Card } from 'semantic-ui-react'
 class Skill extends React.Component {
 
   handleClick = () => {
-    this.props.history.push(`/viewprofile/${(this.props.skill.users.map(user => user.id))[0]}`)
+    this.props.history.push(`/viewprofile/${this.props.skill.user.id}`)
   }
 
     render() {
@@ -14,7 +14,7 @@ class Skill extends React.Component {
                  <Popup content='click to view' trigger={<Card visible centered
                      onClick={this.handleClick}
                       header={this.props.skill.name}
-                      meta={this.props.skill.users.map(arr => arr.username)[0]}
+                      meta={this.props.skill.user.username}
                        description={this.props.skill.description}
                   />} />
                )

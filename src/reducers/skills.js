@@ -7,11 +7,11 @@ const skills = (state=initialState, action) => {
             // debugger
             // const newArray = action.skills.map(obj => obj.users[0])
             // const newNewArray = newArray.filter(obj => obj !== undefined)
-            const skills = [...action.skills].reverse()
+            const skills = [...action.skills]
             return skills
         case "ADD_SKILL_SUCCESS":
-            // debugger
-            // return {...action.skills, user_skills: }
+            return [...state, action.skill]
+        // case "EDIT_SKILL_SUCCESS":
         default:
             return state
     }

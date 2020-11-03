@@ -12,3 +12,10 @@ export const fetchSkillsSuccess = (skills) => {
         skill: skills
     }
   }
+
+  // export const editSkillSuccess = (skills) => {
+  //   return {
+  //       type: 'EDIT_SKILL_SUCCESS',
+  //       skill: skills
+  //   }
+  // }

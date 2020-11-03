@@ -30,8 +30,9 @@ class ViewProfile extends React.Component {
     }
     
     renderSkills = () => {
-        return this.props.userview.skills.map(skill => {
-          return <ViewSkills skill={skill} />
+        debugger
+        return this.props.userview.skills.map((skill, index) => {
+          return <ViewSkills skill={skill} key={index} history={this.props.history}/>
         })
      }
 
@@ -86,6 +87,7 @@ class ViewProfile extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
+    user: state.user,
     userview: state.userview
     }
 }

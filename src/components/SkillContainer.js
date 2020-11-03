@@ -38,9 +38,9 @@ class SkillContainer extends React.Component {
   }
 
     renderSkills = () => {
-      // debugger
       let skillsList = this.props.skills.filter(skills => skills.name.toLowerCase().includes(this.props.search.toLowerCase()))
-      return skillsList.map((skill, index) => (
+      let newSkillsList = skillsList.filter(skill => skill.user.id !== this.props.user.id)
+      return newSkillsList.map((skill, index) => (
         <Skill key={index} skill={skill} history={this.props.history} />
           ))
         }

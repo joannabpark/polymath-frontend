@@ -4,6 +4,7 @@ import { deleteSkillSuccess } from '../actions/indSkill'
 import { connect } from 'react-redux'
 import { editSkillSuccess } from "../actions/indSkill";
 import Popup from 'reactjs-popup';
+import {Link} from 'react-router-dom'
 
 class MySkills extends React.Component {
 
@@ -44,7 +45,7 @@ handleSubmit = (e) => {
             id: this.state.id,
             name: this.state.name,
             category: this.state.category,
-            description: this.state.description
+            description: this.state.description,
         })
     }
     fetch(`http://localhost:3000/skills/${this.state.id}`, reqObj)
@@ -52,7 +53,7 @@ handleSubmit = (e) => {
     .then(data => {
       console.log(data)
         this.props.editSkillSuccess(data)
-        // debugger
+        debugger
         this.props.history.push(`/myprofile`)
     })
 }
@@ -120,7 +121,7 @@ handleSubmit = (e) => {
               </Card.Content>
               <Card.Content extra>
                 <div className='ui two buttons'>
-                  <Button basic color='blue'>
+                  <Button basic color='blue' as={Link} to="/myprofile/editskill">
                     edit
                   </Button>
                   <Button basic color='purple' onClick={() => this.removeSkill(this.props.skill.id)}>

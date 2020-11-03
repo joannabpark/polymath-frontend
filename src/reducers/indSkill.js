@@ -3,12 +3,11 @@ const initialState = []
 const indSkill = (state=initialState, action) => {
     switch(action.type) {
         case "EDIT_SKILL_SUCCESS":
-            // debugger
+            // return action.skills
         const editedSkill = state.map(a => {
-            // debugger
                 if (a.id === action.indSkill.id) {
                       a = {
-                        // ...state, 
+                        ...state, 
                         name: action.indSkill.name,
                         category: action.indSkill.category,
                         description: action.indSkill.description

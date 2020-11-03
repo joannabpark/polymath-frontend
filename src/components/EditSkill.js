@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addSkillSuccess } from '../actions/skills'
+// import { editSkillSuccess } from '../actions/skills'
 import { Container, Button, Grid, Form } from 'semantic-ui-react'
 
-class NewSkill extends React.Component {
+class EditSkill extends React.Component {
 
     state = {
         id: "",
@@ -45,8 +45,8 @@ class NewSkill extends React.Component {
                 error: data.error
               })
             } else {
-              this.props.addSkillSuccess(data)
-              this.props.history.push(`/feed`)
+              this.props.editSkillSuccess(data)
+            //   this.props.history.push(`/home`)
             }
           })
     }
@@ -105,7 +105,7 @@ class NewSkill extends React.Component {
                    <div style={{textAlign: "center"}}>
                    <Button animated='fade'>
                      <Button.Content visible><i aria-hidden="true" className="plus square outline icon"></i></Button.Content>
-                      <Button.Content hidden style={{ color: 'hotpink'}}>create</Button.Content>
+                      <Button.Content hidden style={{ color: 'hotpink'}}>update</Button.Content>
                 </Button>
                   </div>
              </Form>
@@ -121,13 +121,13 @@ class NewSkill extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-      user: state.user,
+    user: state.user,
       skills: state.skills
     }
   }
   
   const mapDispatchToProps = {
-    addSkillSuccess
+    // editSkillSuccess
   }
   
-  export default connect(mapStateToProps, mapDispatchToProps)(NewSkill)
+  export default connect(mapStateToProps, mapDispatchToProps)(EditSkill)

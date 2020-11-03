@@ -21,12 +21,18 @@ class MyProfile extends React.Component {
     }
 
     componentDidMount() {
+        const token = localStorage.getItem('app_token')
+    if (!token){
+      this.props.history.push('/login')
+    } else {
         fetch(`http://localhost:3000/users/${this.props.user.id}`)
         .then(resp => resp.json())
         .then(data => {
+            // debugger
             this.setState({ id: data.id, first_name: data.first_name, email: data.email, location: data.location, image_url: data.image_url })
         })
       }
+    }
 
       handleChange = (e) => {
         this.setState({
@@ -72,11 +78,14 @@ deleteUser = (id) => {
 }
 
 renderMySkills = () => {
-    // debugger
     return this.props.indSkill.map((skill, index) => {
      return <MySkills skill={skill} key={index} user_skills={this.props.user.user_skills} history={this.props.history} />
     })
  }
+
+//  handleClick = () => {
+//      this.props.renderMyLessons()
+//  }
 
   render() { 
     const token = localStorage.getItem('app_token')
@@ -169,7 +178,7 @@ renderMySkills = () => {
                                 </Card.Content>
                                 <Card.Content extra>
                                      <div style={{textAlign: "center"}}>
-                                         <Button>my lessons</Button>
+                                         <Button as={Link} to="/myprofile/mylessons">receiving lessons</Button>
                                      <Button onClick={() => this.deleteUser(this.props.user.id)}>delete account</Button>
                                       </div>
                                 </Card.Content>
@@ -235,7 +244,7 @@ const mapStateToProps = (state) => {
     return {
     user: state.user,
     skills: state.skills,
-    indSkill: state.indSkill
+    indSkill: state.indSkill,
     }
 }
 

@@ -1,5 +1,5 @@
 
-const URL = 'http://localhost:3000/skills'
+// const URL = 'http://localhost:3000/skills'
 
 export const editSkillSuccess = (indSkill) => {
     // debugger
