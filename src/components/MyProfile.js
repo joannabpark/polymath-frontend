@@ -93,18 +93,21 @@ renderMySkills = () => {
             <Grid divided="vertically">
                 <Grid.Row>
                     <Grid.Column width={8}>
+                    <div style={{marginTop: "40px"}}>
                             <Card centered>
-                                <Popup trigger={<Image src={this.props.user.image_url} wrapped ui={false} />} position="bottom right">
-                                <Form onSubmit={this.handleSubmit}>
-                                    <Form.Group widths='equal'>
+                              <Image src={this.props.user.image_url} wrapped ui={false} />
+                                <Popup trigger={<button className="button ui">upload new profile pic</button>} position="top">
+                                <Form success onSubmit={this.handleSubmit} >
+                                    <Form.Group>
                                         <input
-                                        as={<Form.Input />}
+                                        as={<Form.Input width='equal'/>}
                                             type="url" 
                                             name="image_url" 
                                             placeholder="new image url"
                                             value={this.state.image_url}
                                              onChange={this.handleChange}
                                         />
+                                        <br></br>
                                         <div style={{textAlign: "center"}}>
                                           <Button>Save</Button>
                                       </div>
@@ -196,6 +199,7 @@ renderMySkills = () => {
                             </Button> */}
                             {/* </div>
                         </div> */}
+                      </div>
                 </Grid.Column>
                 <Grid.Column width={8}>
                     <Button as={Link} to='/myprofile/newskill'>new skill</Button>

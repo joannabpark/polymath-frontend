@@ -6,6 +6,7 @@ import userview from './userview';
 import indSkill from './indSkill';
 import lessons from './lessons';
 import givelessons from './givelessons';
+import messages from './messages'
 
 export default combineReducers({
     user,
@@ -14,5 +15,6 @@ export default combineReducers({
     search,
     indSkill,
     lessons,
-    givelessons
+    givelessons,
+    messages
 })

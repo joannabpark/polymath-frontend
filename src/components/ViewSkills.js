@@ -88,9 +88,6 @@ class ViewSkills extends React.Component {
                              </Form.Group>
                          </Form>
                    </Popup>
-                   <Button basic color='purple'>
-                    message
-                  </Button>
                 {/* </div> */}
               </Card.Content>
             </Card>

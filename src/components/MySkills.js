@@ -122,9 +122,9 @@ handleSubmit = (e) => {
               </Card.Content>
               <Card.Content extra>
                 <div className='ui two buttons'>
-                  <Button basic color='blue' as={Link} to="/myprofile/editskill">
+                  {/* <Button basic color='blue' as={Link} to="/myprofile/editskill">
                     edit
-                  </Button>
+                  </Button> */}
                   <Button basic color='purple' onClick={() => this.removeSkill(this.props.skill.id)}>
                     delete
                   </Button>
