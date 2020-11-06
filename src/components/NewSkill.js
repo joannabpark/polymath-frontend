@@ -39,7 +39,6 @@ class NewSkill extends React.Component {
           fetch('http://localhost:3000/skills', reqObj)
           .then(resp => resp.json())
           .then(data => {
-              // debugger
             if (data.error) {
               this.setState({
                 error: data.error

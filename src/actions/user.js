@@ -47,3 +47,9 @@ export const loginSuccess = (user) => {
     }
   }
   
+  export const updateUserProviderPoints = (user) => {
+    return {
+        type: 'UPDATE_USER_PROVIDER_POINTS',
+        user: user
+    }
+  }

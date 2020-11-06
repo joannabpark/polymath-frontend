@@ -3,11 +3,12 @@ import { connect } from 'react-redux'
 import { fetchSkillsSuccess } from '../actions/skills';
 import { currentUser } from '../actions/user'
 import Skill from './Skill'
+// import toaster from "toasted-notes";
+// import "./styling.css";
 
 class SkillContainer extends React.Component {
 
-  componentDidMount(){
-   
+componentDidMount(){
     const token = localStorage.getItem('app_token')
     // console.log(token)
     if (!token){
@@ -25,10 +26,10 @@ class SkillContainer extends React.Component {
       .then(data => {
         if (data.user) {
           this.props.currentUser(data.user)
+  
           fetch('http://localhost:3000/skills')
           .then(resp => resp.json())
           .then(skills => {
-            // debugger
             // let newSkills = skills.filter(skill => skill.user_id === data.user.id)
             this.props.fetchSkillsSuccess(skills)
           })
@@ -41,7 +42,6 @@ class SkillContainer extends React.Component {
       let skillsList = this.props.skills.filter(skills => skills.name.toLowerCase().includes(this.props.search.toLowerCase()) || skills.category.toLowerCase().includes(this.props.search.toLowerCase()) || skills.description.toLowerCase().includes(this.props.search.toLowerCase()))
       let newSkillsList = skillsList.filter(skill => skill.user.id !== this.props.user.id)
       let newNewSkillsList = newSkillsList.filter(obj => obj.lessons[0] === undefined)
-      // debugger
       return newNewSkillsList.map((skill, index) => (
         <Skill key={index} skill={skill} history={this.props.history} />
           ))
@@ -64,6 +64,8 @@ class SkillContainer extends React.Component {
         )
       }
   }
+
+
 
 const mapStateToProps = (state) => {
   return {

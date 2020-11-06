@@ -20,7 +20,6 @@ class Inbox extends React.Component {
   }
 
     renderMessages = () => {
-        // debugger
         let newMessages = this.props.messages.filter(message => message.recipient_id === this.props.user.id)
       return newMessages.map((message, index) => (
         <Message key={index} message={message} history={this.props.history} />

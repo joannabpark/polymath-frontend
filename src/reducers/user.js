@@ -12,7 +12,9 @@ const user = (state={}, action) => {
         case "DELETE_USER":
             return {}
         case "UPDATE_USER_POINTS":
-                return {...state, points: state.points - 1}
+            return {...state, points: state.points - 1}
+        case "UPDATE_USER_PROVIDER_POINTS":
+            return {...state, points: state.points + 1}
         default:
             return state
     }

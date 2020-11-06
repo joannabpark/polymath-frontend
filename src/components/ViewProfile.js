@@ -6,6 +6,8 @@ import { newMessageSuccess } from '../actions/messages'
 import { Grid, Card, Image, Button, Form } from 'semantic-ui-react'
 import ViewSkills from './ViewSkills'
 import Popup from 'reactjs-popup';
+import toaster from "toasted-notes";
+import "./styling.css";
 
 class ViewProfile extends React.Component {
 
@@ -43,7 +45,6 @@ class ViewProfile extends React.Component {
       }
 
     handleNewMessageSubmit = (e) => {
-        // debugger
         e.preventDefault()
         const reqObj = {
             method: 'POST',
@@ -62,24 +63,27 @@ class ViewProfile extends React.Component {
           fetch('http://localhost:3000/messages', reqObj)
           .then(resp => resp.json())
           .then(data => {
-              // debugger
             if (data.error) {
               this.setState({
                 error: data.error
               })
             } else {
               this.props.newMessageSuccess(data)
+              toaster.notify("your message was sent!", {
+                duration: 2000
+              })
               this.props.history.push(`/viewprofile/${this.state.recipient_id}`)
             }
           })
     }
 
-    successMessage = () => {
-        alert("your message was sent!")
-    }
+    // successMessage = () => {
+    //     toaster.notify("your message was sent!", {
+    //       duration: 2000
+    //     })
+    // }
     
     renderSkills = () => {
-        // debugger
         // filtering of only viewing not signed up skills doesn't work
         // let newArray = this.props.userview.providing_lessons.filter(obj => obj.provider_id === this.props.userview.id)       
         // let id = parseInt(newArray.map(obj => obj.skill_id))
@@ -118,7 +122,7 @@ class ViewProfile extends React.Component {
                                             placeholder="new message"
                                              onChange={this.handleMessageChange}
                                         />
-                                          <Button onClick={() => this.successMessage()}>Send</Button>
+                                          <Button>Send</Button>
                                     </Form>
                                 </Popup>
                         </Card.Content>

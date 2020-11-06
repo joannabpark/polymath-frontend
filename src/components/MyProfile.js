@@ -28,7 +28,6 @@ class MyProfile extends React.Component {
         fetch(`http://localhost:3000/users/${this.props.user.id}`)
         .then(resp => resp.json())
         .then(data => {
-            // debugger
             this.setState({ id: data.id, first_name: data.first_name, email: data.email, location: data.location, image_url: data.image_url })
         })
       }
@@ -72,7 +71,6 @@ deleteUser = (id) => {
     .then(resp => resp.json())
     .then(data => {
         this.props.deleteUser(id)
-        // debugger
         this.props.history.push('/login')
     })
 }

@@ -8,6 +8,8 @@ import {Link} from 'react-router-dom';
 import { deleteLessonSuccess } from '../actions/lessons'
 import { updateUserPoints } from '../actions/user'
 import { updateUserviewPoints } from '../actions/userview'
+import toaster from "toasted-notes";
+import "./styling.css";
 
 class Lesson extends React.Component {
 
@@ -64,6 +66,9 @@ deleteLesson = (id) => {
     .then(resp => resp.json())
     .then(data => {
       this.props.deleteLessonSuccess(id)
+      toaster.notify("lesson completed! 1 point has been deducted.", {
+        duration: 2000
+      })
       this.props.history.push(`/myprofile/receivinglessons`)
     // debugger
   })

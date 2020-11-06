@@ -4,6 +4,8 @@ import { Grid, Button, Form, Container } from 'semantic-ui-react';
 import { loginSuccess } from '../actions/user';
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
+import toaster from "toasted-notes";
+import "./styling.css";
 
 class Login extends React.Component {
 
@@ -40,6 +42,9 @@ class Login extends React.Component {
         } else {
           localStorage.setItem('app_token', data.token)
           this.props.loginSuccess(data.user)
+          toaster.notify(`welcome ${data.user.first_name}!`, {
+            duration: 2000
+          })
           this.props.history.push('/feed')
       }
     })

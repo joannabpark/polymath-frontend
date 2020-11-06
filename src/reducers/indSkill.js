@@ -21,7 +21,6 @@ const indSkill = (state=initialState, action) => {
              const newSkills = state.filter(obj => obj.id !== action.id)
              return newSkills
           case "ADD_SKILL_SUCCESS":
-            //   debugger
              return [...state, action.skill]
         case "CURRENT_USER":
             return action.user.skills

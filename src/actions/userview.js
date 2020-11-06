@@ -13,5 +13,10 @@
     }
   }
 
-
+  export const updateUserviewReceiverPoints = (userview) => {
+    return {
+        type: 'UPDATE_USERVIEW_RECEIVER_POINTS',
+        userview: userview
+    }
+  }
   

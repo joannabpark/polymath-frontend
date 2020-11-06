@@ -15,14 +15,6 @@ import Inbox from '../components/Inbox';
 
 class App extends React.Component {
 
-//   componentDidMount() {
-//   const token = localStorage.getItem('app_token')
-//   // console.log(token)
-//   if (!token){
-//     this.props.history.push('/login')
-//   }
-// }
-
   render() {
   return (
     <BrowserRouter>

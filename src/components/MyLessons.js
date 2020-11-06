@@ -13,7 +13,6 @@ class MyLessons extends React.Component {
   }
     
     renderLessons = () => {
-        // debugger
         return this.props.lessons.map((lesson, index) => (
           <Lesson key={index} lesson={lesson} history={this.props.history} />
             ))

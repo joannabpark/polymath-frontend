@@ -3,6 +3,8 @@ import { Button, Card, Form } from 'semantic-ui-react'
 import Popup from 'reactjs-popup';
 import { newLessonSuccess } from '../actions/lessons'
 import { connect } from 'react-redux'
+import toaster from "toasted-notes";
+import "./styling.css";
 
 class ViewSkills extends React.Component {
 
@@ -46,18 +48,21 @@ class ViewSkills extends React.Component {
           fetch('http://localhost:3000/lessons', reqObj)
           .then(resp => resp.json())
           .then(data => {
-              // debugger
               if (this.props.user.points <= 0) {
-                alert("you don't have points!")
+                toaster.notify("you don't have points!", {
+                  duration: 2000
+                })
               } else{
               this.props.newLessonSuccess(data)
+              toaster.notify("thank you for signing up!", {
+                duration: 2000
+              })
               this.props.history.push(`/myprofile/receivinglessons`)
             }
           })
   }
 
     render() {
-      // debugger
         return ( 
             <Card.Group>
             <Card>

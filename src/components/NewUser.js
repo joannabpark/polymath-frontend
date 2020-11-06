@@ -2,7 +2,8 @@ import React from 'react';
 import { Grid, Container, Button, Form } from "semantic-ui-react";
 import { createUserSuccess } from "../actions/user";
 import { connect } from "react-redux";
-// import { Link } from "react-router-dom";
+// import toaster from "toasted-notes";
+// import "./styling.css";
 
 
 class NewUser extends React.Component {
@@ -45,6 +46,9 @@ class NewUser extends React.Component {
           } else {
             // localStorage.setItem('app_token', data.token)
             this.props.createUserSuccess(data)
+            // toaster.notify(`hello ${data.user.first_name}!`, {
+            //   duration: 2000
+            // })
             this.props.history.push(`/myprofile`)
           }
         })

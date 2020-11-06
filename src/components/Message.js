@@ -5,6 +5,8 @@ import { repliedStatusUpdate } from '../actions/messages'
 import moment from 'moment-timezone';
 import { Form, Button, Card, Icon } from 'semantic-ui-react'
 import Popup from 'reactjs-popup';
+import toaster from "toasted-notes";
+import "./styling.css";
 
 class Message extends React.Component {
 
@@ -24,7 +26,6 @@ class Message extends React.Component {
   }
 
 handleNewMessageSubmit = (e) => {
-    // debugger
     e.preventDefault()
     const reqObj = {
         method: 'POST',
@@ -50,19 +51,16 @@ handleNewMessageSubmit = (e) => {
           })
         } else {
           this.props.newMessageSuccess(data)
-          // debugger
+          toaster.notify("your message was sent!", {
+            duration: 2000
+          })
           this.handleReplied(this.props.message.id)
           this.props.history.push(`/viewprofile/${this.props.message.sender_id}`)
         }
       })
 }
 
-  successMessage = () => {
-    alert("your message was sent!")
-}
-
 handleReplied = () => {
-  // debugger
   const reqObj = {
       method: 'PATCH', 
       headers: {
@@ -100,7 +98,7 @@ handleReplied = () => {
                                             placeholder="new message"
                                              onChange={this.handleMessageChange}
                                         />
-                                          <Button onClick={() => this.successMessage()}>Send</Button>
+                                          <Button>Send</Button>
                                     </Form>
                                 </Popup>
                           {/*  */}
