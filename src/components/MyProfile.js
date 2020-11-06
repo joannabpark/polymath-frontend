@@ -21,7 +21,7 @@ class MyProfile extends React.Component {
     }
 
     componentDidMount() {
-        const token = localStorage.getItem('app_token')
+     const token = localStorage.getItem('app_token')
     if (!token){
       this.props.history.push('/login')
     } else {
@@ -174,12 +174,13 @@ renderMySkills = () => {
                                         </Form.Group>
                                    </Form>
                                      </Popup>
+                                     <br></br>
+                                     <a>points: {this.props.user.points}</a>
                                 </Card.Description>
+                                
                                 </Card.Content>
                                 <Card.Content extra>
                                      <div style={{textAlign: "center"}}>
-                                     <Button as={Link} to="/myprofile/providinglessons">providing lessons</Button>
-                                         <Button as={Link} to="/myprofile/receivinglessons">receiving lessons</Button>
                                      <Button onClick={() => this.deleteUser(this.props.user.id)}>delete account</Button>
                                       </div>
                                 </Card.Content>

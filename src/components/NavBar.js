@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Input, Menu } from 'semantic-ui-react';
+import { Button, Input, Menu, Dropdown } from 'semantic-ui-react';
 import {Link} from 'react-router-dom'
 import { logoutSuccess } from '../actions/user'
 import {connect} from 'react-redux' 
@@ -38,12 +38,26 @@ class NavBar extends React.Component {
           ><i aria-hidden="true" className="home icon"></i>home
         </Menu.Item>
         <Menu.Item
-           name='newnote'
-           active={activeItem === 'newnote'}
+           name='my profile'
+           active={activeItem === 'my profile'}
            onClick={this.handleItemClick}
            as={Link}
            to={'/myprofile'}
             ><i aria-hidden="true" className="user icon"></i>my profile
+        </Menu.Item>
+        <Dropdown item text='my lessons'>
+          <Dropdown.Menu>
+            <Dropdown.Item as={Link} to="/myprofile/providinglessons">providing lessons</Dropdown.Item>
+            <Dropdown.Item as={Link} to="/myprofile/receivinglessons">receiving lessons</Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+        <Menu.Item
+           name='inbox'
+           active={activeItem === 'inbox'}
+           onClick={this.handleItemClick}
+           as={Link}
+           to={'/inbox'}
+            ><i aria-hidden="true" className="mail icon"></i>inbox
         </Menu.Item>
         <Menu.Menu position='right'>
           <Menu.Item>

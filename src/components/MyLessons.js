@@ -1,14 +1,16 @@
 import React from 'react'
-import { Popup, Button, Card } from 'semantic-ui-react'
 import { connect } from 'react-redux'
-import moment from 'moment';
-// import Popup from 'reactjs-popup';
-// import {Link} from 'react-router-dom';
 import Lesson from './Lesson';
 
 class MyLessons extends React.Component {
 
-
+  componentDidMount(){
+    const token = localStorage.getItem('app_token')
+    // console.log(token)
+    if (!token){
+      this.props.history.push('/login')
+    } 
+  }
     
     renderLessons = () => {
         // debugger

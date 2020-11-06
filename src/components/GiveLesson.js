@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { Container, Button, Popup } from 'semantic-ui-react'
 // import Popup from 'reactjs-popup';
 import {Link} from 'react-router-dom';
@@ -31,7 +31,7 @@ class GiveLesson extends React.Component {
           <div className="content">
            <div className="header">{this.props.lesson.skill_name}    
           </div>
-            <div className="meta">{moment(this.props.lesson.date).format('LLL')}</div>
+            <div className="meta">{moment.tz(`${this.props.lesson.date}`, 'Europe/Dublin').format('LLL')}</div>
            <div className="description">{this.props.lesson.description}</div>
           </div>
           <div className="ui animated button" >

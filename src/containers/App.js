@@ -11,8 +11,17 @@ import NewUser from '../components/NewUser';
 import MyLessons from '../components/MyLessons';
 import GiveLessons from '../components/GiveLessons';
 import ErrorPage from '../components/ErrorPage';
+import Inbox from '../components/Inbox';
 
 class App extends React.Component {
+
+//   componentDidMount() {
+//   const token = localStorage.getItem('app_token')
+//   // console.log(token)
+//   if (!token){
+//     this.props.history.push('/login')
+//   }
+// }
 
   render() {
   return (
@@ -20,7 +29,7 @@ class App extends React.Component {
       <div className="app">
         <NavBar />
         <Switch>
-          {/* <Route exact path="/home/:id/form" component={Form} /> */}
+          <Route exact path="/inbox" component={Inbox} />
           <Route exact path="/feed" component={SkillContainer} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/myprofile" component={MyProfile} />

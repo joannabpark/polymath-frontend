@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import moment from 'moment';
 import { fetchUserSuccess } from '../actions/userview';
 import { newMessageSuccess } from '../actions/messages'
-import { Grid, Card, Image, Button, Form, Message } from 'semantic-ui-react'
+import { Grid, Card, Image, Button, Form } from 'semantic-ui-react'
 import ViewSkills from './ViewSkills'
 import Popup from 'reactjs-popup';
 
@@ -14,8 +14,9 @@ class ViewProfile extends React.Component {
         content: "",
         sender_id: this.props.user.id,
         recipient_id: this.props.userview.id,
+        replied: false,
         error: null,
-        fetched: false
+        fetched: false,
     }
     
     componentDidMount() {
@@ -41,7 +42,7 @@ class ViewProfile extends React.Component {
         })
       }
 
-    handleNewSkillSubmit = (e) => {
+    handleNewMessageSubmit = (e) => {
         // debugger
         e.preventDefault()
         const reqObj = {
@@ -54,7 +55,8 @@ class ViewProfile extends React.Component {
                 id: this.state.id,
                 content: this.state.content,
                 sender_id: this.state.sender_id,
-                recipient_id: this.state.recipient_id,
+                recipient_id: this.props.userview.id,
+                replied: false
             })
           }
           fetch('http://localhost:3000/messages', reqObj)
@@ -108,16 +110,15 @@ class ViewProfile extends React.Component {
                         </Card.Content>
                         <Card.Content extra>
                           <Popup trigger={<button className="ui button">message {this.props.userview.first_name}</button>} position="right">
-                                <Form success onSubmit={this.handleNewSkillSubmit}>
+                                <Form success onSubmit={this.handleNewMessageSubmit}>
                                  <input
                                         as={<Form.Input width='equal'/>}
                                             type="text" 
                                             name="content" 
                                             placeholder="new message"
-                                            value={this.state.image_url}
                                              onChange={this.handleMessageChange}
                                         />
-                                          <Button onClick={() => this.successMessage}>Submit</Button>
+                                          <Button onClick={() => this.successMessage()}>Send</Button>
                                     </Form>
                                 </Popup>
                         </Card.Content>

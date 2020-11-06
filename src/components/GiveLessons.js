@@ -1,10 +1,18 @@
 import React from 'react'
-import { Popup, Button, Card } from 'semantic-ui-react'
+// import { Popup, Button, Card } from 'semantic-ui-react'
 import { connect } from 'react-redux'
-import moment from 'moment';
+// import moment from 'moment';
 import GiveLesson from './GiveLesson'
 
 class GiveLessons extends React.Component {
+
+  componentDidMount(){
+    const token = localStorage.getItem('app_token')
+    // console.log(token)
+    if (!token){
+      this.props.history.push('/login')
+    }
+  }
 
     renderProvidingLessons = () => {
     

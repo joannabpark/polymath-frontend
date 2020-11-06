@@ -5,3 +5,13 @@
         userview: userview
     }
   }
+
+  export const updateUserviewPoints = (userview) => {
+    return {
+        type: 'UPDATE_USERVIEW_POINTS',
+        userview: userview
+    }
+  }
+
+
+  

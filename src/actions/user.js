@@ -32,9 +32,18 @@ export const loginSuccess = (user) => {
         user: user
     }
   }
+
   export const deleteUser = (user) => {
     return {
         type: 'DELETE_USER',
         user: user
     }
   }
+
+  export const updateUserPoints = (user) => {
+    return {
+        type: 'UPDATE_USER_POINTS',
+        user: user
+    }
+  }
+  

@@ -15,7 +15,7 @@ class ViewSkills extends React.Component {
     provider_id: this.props.skill.user_id,
     receiver_id: this.props.user.id,
     skill_id: this.props.skill.id,
-    error: null
+    error: null,
   };
 
   handleChange = (e) => {
@@ -46,12 +46,10 @@ class ViewSkills extends React.Component {
           fetch('http://localhost:3000/lessons', reqObj)
           .then(resp => resp.json())
           .then(data => {
-              console.log(data)
-            if (data.error) {
-              this.setState({
-                error: data.error
-              })
-            } else {
+              // debugger
+              if (this.props.user.points <= 0) {
+                alert("you don't have points!")
+              } else{
               this.props.newLessonSuccess(data)
               this.props.history.push(`/myprofile/receivinglessons`)
             }
@@ -65,6 +63,7 @@ class ViewSkills extends React.Component {
             <Card>
               <Card.Content>
                  <Card.Header>{this.props.skill.name}</Card.Header>
+                {/* {(this.props.lessons.map(lesson => lesson.receiver_id)).includes(this.props.user.id) ? <Icon name='star outline' /> : null } */}
                 <Card.Meta>{this.props.skill.category}</Card.Meta>
                 <Card.Description>
                     {this.props.skill.description}
@@ -74,6 +73,7 @@ class ViewSkills extends React.Component {
                 {/* <div className='ui two buttons'> */}
                 <Popup trigger={<button className='ui button'>sign up</button>} position="bottom right">
                         <Form onSubmit={this.handleSubmit}>
+                        <h4 style={{backgroundColor: "pink"}}>Enter date and time:</h4>
                              <Form.Group widths='equal'>
                                     <input
                                      as={<Form.Input />}
@@ -99,6 +99,7 @@ class ViewSkills extends React.Component {
   const mapStateToProps = (state) => {
     return {
     user: state.user,
+    userview: state.userview,
     skills: state.skills,
     lessons: state.lessons
     }

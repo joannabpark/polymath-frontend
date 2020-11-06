@@ -4,7 +4,7 @@ import { deleteSkillSuccess } from '../actions/indSkill'
 import { connect } from 'react-redux'
 import { editSkillSuccess } from "../actions/indSkill";
 import Popup from 'reactjs-popup';
-import {Link} from 'react-router-dom'
+// import {Link} from 'react-router-dom'
 
 class MySkills extends React.Component {
 
@@ -16,6 +16,10 @@ class MySkills extends React.Component {
   }
 
 componentDidMount() {
+  const token = localStorage.getItem('app_token')
+    if (!token){
+      this.props.history.push('/login')
+    } else {
     fetch(`http://localhost:3000/skills/${this.props.skill.id}`)
     .then(resp => resp.json())
     .then(data => {
@@ -25,7 +29,8 @@ componentDidMount() {
           category: data.category, 
           description: data.description
          })
-    })
+     })
+    }
   }
 
   handleChange = (e) => {

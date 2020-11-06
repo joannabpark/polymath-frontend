@@ -11,7 +11,7 @@ const lessons = (state=[], action) => {
           return [...state, action.lessons]
         case "DELETE_LESSON_SUCCESS":
           // debugger
-          const newLessons = state.filter(obj => obj.id !== action.id)
+          const newLessons = state.filter(obj => obj.id !== action.lessons)
              return newLessons
           default:
             return state

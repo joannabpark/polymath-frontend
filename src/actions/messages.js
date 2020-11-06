@@ -5,3 +5,19 @@ export const newMessageSuccess = (messages) => {
       messages: messages
     }
   }
+
+  export const fetchMessagesSuccess = (messages) => {
+    return {
+      type: 'FETCH_MESSAGES_SUCCESS',
+      messages: messages
+    }
+  }
+
+  export const repliedStatusUpdate = (messages) => {
+    return {
+      type: 'REPLIED_STATUS_UPDATE',
+      messages: messages
+    }
+  }
+
+  

@@ -14,7 +14,7 @@ class NewUser extends React.Component {
       email: "",
       points: 1,
       location: "",
-      image_url: "",
+      image_url: "https://thumbs.dreamstime.com/b/default-avatar-profile-image-vector-social-media-user-icon-potrait-182347582.jpg",
       error: null
     };
   
