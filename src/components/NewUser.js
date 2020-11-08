@@ -1,9 +1,8 @@
 import React from 'react';
-import { Grid, Container, Button, Form } from "semantic-ui-react";
+import { Grid, Header, Button, Form, Segment } from "semantic-ui-react";
 import { createUserSuccess } from "../actions/user";
 import { connect } from "react-redux";
-// import toaster from "toasted-notes";
-// import "./styling.css";
+import "./styling.css";
 
 
 class NewUser extends React.Component {
@@ -56,12 +55,14 @@ class NewUser extends React.Component {
 
     render() {
         return(
-            <Container text>
-              <br></br>
-            <Grid>
-              <Grid.Row centered>
-                 <Grid.Column width={8}>
-                   <Form onSubmit={this.handleSubmit}>
+          <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+          <Grid.Column style={{ maxWidth: 450 }}>
+            <Header as='h2' color='pink' textAlign='center'>
+             {/* <Image src='/logo.png' />  */}
+                Create account
+                 </Header>
+                 <Form size='large' onSubmit={this.handleSubmit}>
+                  <Segment stacked>
                      <Form.Input
                         icon='user'
                         iconPosition='left'
@@ -82,7 +83,7 @@ class NewUser extends React.Component {
                            <Form.Input
                         icon='user secret'
                         iconPosition='left'
-                        placeholder="first name"
+                        placeholder="your first name"
                          name="first_name"
                          type="first_name"
                         onChange={this.handleChange}
@@ -91,7 +92,7 @@ class NewUser extends React.Component {
                            <Form.Input
                         icon='at'
                         iconPosition='left'
-                        placeholder="email"
+                        placeholder="your email"
                          name="email"
                          type="email"
                         onChange={this.handleChange}
@@ -100,7 +101,7 @@ class NewUser extends React.Component {
                            <Form.Input
                         icon='crosshairs'
                         iconPosition='left'
-                        placeholder="zipcode"
+                        placeholder="your zipcode"
                          name="location"
                          type="location"
                         onChange={this.handleChange}
@@ -109,7 +110,7 @@ class NewUser extends React.Component {
                           <Form.Input
                         icon='image'
                         iconPosition='left'
-                        placeholder="image url"
+                        placeholder="profile pic url"
                          name="image_url"
                          type="image_url"
                         onChange={this.handleChange}
@@ -120,13 +121,15 @@ class NewUser extends React.Component {
                          <Button.Content visible type="submit">Create Account</Button.Content>
                          <Button.Content hidden style={{ color: 'hotpink'}}><i aria-hidden="true" className="plus icon"></i></Button.Content>
                      </Button>   */}
-                  <Button type="submit">Create Account</Button>
+                     <Button type="submit" color='pink' fluid size='large' animated='fade'>
+                         <Button.Content visible>Continue</Button.Content>
+                         <Button.Content hidden style={{ color: 'hotpink'}}>Continue</Button.Content>
+                     </Button>   
                   </div>
+                  </Segment>
                </Form>
            </Grid.Column>
-      </Grid.Row>
-  </Grid>
-</Container>
+        </Grid>
         )
     }
 

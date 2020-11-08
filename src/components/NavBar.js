@@ -1,9 +1,8 @@
 import React from 'react'
-import { Button, Input, Menu, Dropdown } from 'semantic-ui-react';
+import { Input, Menu, Dropdown } from 'semantic-ui-react';
 import {Link} from 'react-router-dom'
 import { logoutSuccess } from '../actions/user'
 import {connect} from 'react-redux' 
-import { searchSkills } from '../actions/search'
 
 class NavBar extends React.Component {
   state = { activeItem: 'home' }
@@ -15,10 +14,6 @@ class NavBar extends React.Component {
     localStorage.removeItem('app_token')
   }
 
-  handleChange = (e) => {
-    e.persist()
-    this.props.searchSkills(e)
-  }
 
   render() {
     const { activeItem } = this.state
@@ -57,12 +52,8 @@ class NavBar extends React.Component {
            onClick={this.handleItemClick}
            as={Link}
            to={'/inbox'}
-            ><i aria-hidden="true" className="mail icon"></i>inbox
+            > <i aria-hidden="true" className="mail icon"></i>inbox
         </Menu.Item>
-        <Menu.Menu position='right'>
-          <Menu.Item>
-            <Input onChange={this.handleChange} icon='search' placeholder='Search...' />
-          </Menu.Item>
           <Menu.Item position='right'>
               {
                 this.props.user.id
@@ -71,10 +62,11 @@ class NavBar extends React.Component {
                 <i aria-hidden="true" className="sign out icon"></i>Logout
                 </Link>
                 : 
-                <Button as={Link} to='/login'>Login</Button>    
+                <Link to='/login' className="ui button" >
+                Login
+                </Link>   
               }
           </Menu.Item>
-       </Menu.Menu>
     </Menu>
     );
   }
@@ -89,7 +81,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   logoutSuccess,
-  searchSkills
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar)

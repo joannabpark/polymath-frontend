@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Grid, Button, Form, Container } from 'semantic-ui-react';
+import { Button, Form, Grid, Header, Image, Message, Segment, Container } from 'semantic-ui-react';
 import { loginSuccess } from '../actions/user';
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
@@ -53,47 +53,43 @@ class Login extends React.Component {
   render() {
 
   return (
-    <div>
-      <Container >
-        <Grid>
-          <Grid.Row centered>
-            <Grid.Column width={6}>
-            { this.state.error && <h4 style={{ color: 'red'}}>{this.state.error}</h4> }
-              <Form onSubmit={this.handleSubmit}>
-                 <br></br>
-                  <Form.Input
+        <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+            <Grid.Column style={{ maxWidth: 450 }}>
+            <Header as='h2' color='pink' textAlign='center'>
+               {/* <Image src='/logo.png' />  */}
+               Log-in to your account
+             </Header>
+              <Form size='large' onSubmit={this.handleSubmit}>
+              <Segment stacked>
+              { this.state.error && <h4 style={{ color: 'red'}}>{this.state.error}</h4> }
+                  <Form.Input fluid
                       icon='user'
                       iconPosition='left'
                        type="text" 
                       placeholder="username"
                        name={'username'} onChange={this.handleInputChange} value={this.state.username} 
                   />
-                  <Form.Input
+                  <Form.Input fluid
                        icon='lock'
                        iconPosition='left'
                       type="password" 
                        name={'password'} onChange={this.handleInputChange} value={this.state.password} 
                        placeholder="password" 
                  />
-                   <div style={{textAlign: "center"}}>
-                      <Button animated='fade'>
+                      <Button color='pink' fluid size='large' animated='fade'>
                          <Button.Content visible><i aria-hidden="true" className="sign in icon"></i></Button.Content>
                          <Button.Content hidden style={{ color: 'hotpink'}}>login</Button.Content>
                      </Button>         
-                   </div>
-                     <br></br> <br></br>
-                   <div style={{textAlign: "center"}}>
-                     <Button animated='fade'>
+                   </Segment>
+                 </Form>
+                 <Message> New to us? <a href='/newuser'>Sign Up</a>
+                     {/* <Button color='pink' fluid size='large' animated='fade'>
                          <Button.Content visible>sign up</Button.Content>
                          <Button.Content hidden as={Link} to={'/newuser'} style={{ color: 'hotpink'}}>sign up</Button.Content>
-                     </Button>         
-                   </div>
-                 </Form>
+                     </Button>          */}
+                   </Message>
                </Grid.Column>
-            </Grid.Row>
         </Grid>
-     </Container>
-   </div>
    );
   }
 }

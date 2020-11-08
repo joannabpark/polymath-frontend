@@ -1,5 +1,5 @@
 .Toaster__alert {
-  background-color: rgb(250, 198, 252);
+  background-color: rgb(235, 123, 132);
   overflow: hidden;
   max-width: 650px;
   position: relative;
@@ -17,11 +17,11 @@
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  color: rgb(33, 37, 41);
+  color: rgb(240, 236, 236);
   -webkit-font-smoothing: antialiased;
   font-weight: 500;
   line-height: 1.5;
-  font-size: 1rem;
+  font-size: 1.5rem;
   margin: 0px;
 }
 

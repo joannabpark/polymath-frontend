@@ -78,7 +78,7 @@ handleSubmit = (e) => {
     render() {
         return ( 
             // <Card.Group>
-            <Card>
+            <Card style={{width: "80%"}}>
               <Card.Content>
                  <Card.Header>
                  <Popup trigger={<a>{this.props.skill.name}</a>} position="right center">

@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux'
+import { Menu, Input } from 'semantic-ui-react';
 import { fetchSkillsSuccess } from '../actions/skills';
 import { currentUser } from '../actions/user'
 import Skill from './Skill'
-// import toaster from "toasted-notes";
-// import "./styling.css";
+import { searchSkills } from '../actions/search'
 
 class SkillContainer extends React.Component {
 
@@ -38,6 +38,11 @@ componentDidMount(){
     }
   }
 
+  handleChange = (e) => {
+    e.persist()
+    this.props.searchSkills(e)
+  }
+
     renderSkills = () => {
       let skillsList = this.props.skills.filter(skills => skills.name.toLowerCase().includes(this.props.search.toLowerCase()) || skills.category.toLowerCase().includes(this.props.search.toLowerCase()) || skills.description.toLowerCase().includes(this.props.search.toLowerCase()))
       let newSkillsList = skillsList.filter(skill => skill.user.id !== this.props.user.id)
@@ -50,13 +55,16 @@ componentDidMount(){
     render () {
         return (
             <div className='App'>
-               {/* <div>
-                 <select >
-                    <option value="" disabled selected>Sort by</option>
-                     <option >Newest</option>
-                     <option >Oldest</option>
-                    </select>
-                 </div> */}
+              <div style={{height: "150px", backgroundColor: 'slategrey'}}>
+                  <h1 style={{paddingTop: "50px", fontFamily: "system-ui", color: "white"}}>What skill do you want to learn next?</h1>
+              </div>
+              <div style={{height: "50px", backgroundColor: 'hotpink'}}>
+                <div style={{paddingTop: "6px"}}>
+                 <Menu.Item><a style={{fontSize: "18px", fontFamily: "system-ui", color: "white"}}>Enter a skill you want to learn: </a>
+                     <Input onChange={this.handleChange} icon='search' placeholder='Search...' />
+                   </Menu.Item>
+                  </div>
+              </div>
                  <br></br>
                    {this.renderSkills()}
                  <br></br>
@@ -77,7 +85,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   fetchSkillsSuccess,
-  currentUser
+  currentUser,
+  searchSkills
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SkillContainer)

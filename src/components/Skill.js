@@ -11,12 +11,15 @@ class Skill extends React.Component {
 
     render() {
         return ( 
-                 <Popup content='click to view provider profile' trigger={<Card visible centered
+            <Card centered>
+                 <Popup content='click to view provider profile' 
+                   trigger={<Card visible centered
                      onClick={this.handleClick}
                       header={this.props.skill.name}
                       meta={this.props.skill.category}
                        description={this.props.skill.description}
                   />} />
+                  </Card>
                )
            }
   }

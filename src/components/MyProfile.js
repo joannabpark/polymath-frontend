@@ -8,7 +8,6 @@ import MySkills from './MySkills'
 import { editUserSuccess } from "../actions/user";
 import Popup from 'reactjs-popup';
 import {Link} from 'react-router-dom'
-// import 'reactjs-popup/dist/index.css';
 
 class MyProfile extends React.Component {
 
@@ -92,7 +91,7 @@ renderMySkills = () => {
                 <Grid.Row>
                     <Grid.Column width={8}>
                     <div style={{marginTop: "40px"}}>
-                            <Card centered>
+                            <Card centered style={{width: "80%"}}>
                               <Image src={this.props.user.image_url} wrapped ui={false} />
                                 <Popup trigger={<button className="button ui">upload new profile pic</button>} position="top">
                                 <Form success onSubmit={this.handleSubmit} >

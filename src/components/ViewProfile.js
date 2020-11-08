@@ -45,6 +45,7 @@ class ViewProfile extends React.Component {
       }
 
     handleNewMessageSubmit = (e) => {
+      debugger
         e.preventDefault()
         const reqObj = {
             method: 'POST',
@@ -158,7 +159,7 @@ class ViewProfile extends React.Component {
 const mapStateToProps = (state) => {
     return {
     user: state.user,
-    lessons: state.lessons,
+    // lessons: state.lessons,
     userview: state.userview
     }
 }
