@@ -4,6 +4,7 @@ import { deleteSkillSuccess } from '../actions/indSkill'
 import { connect } from 'react-redux'
 import { editSkillSuccess } from "../actions/indSkill";
 import Popup from 'reactjs-popup';
+import './styling.css'
 // import {Link} from 'react-router-dom'
 
 class MySkills extends React.Component {
@@ -81,7 +82,7 @@ handleSubmit = (e) => {
     render() {
         return ( 
           <Container style={{paddingBottom: "15px"}}>
-            <Card style={{border: "1px groove pink"}} fluid centered>
+            <Card style={{border: "1px solid pink"}} fluid centered>
              <img src={this.props.skill.video_url} height={300}/>
               <Card.Content>
               <Card.Header>
@@ -128,12 +129,14 @@ handleSubmit = (e) => {
               </Card.Content>
               <Card.Content extra>
                 <div className='ui two buttons'>
-                  {/* <Button basic color='blue' as={Link} to="/myprofile/editskill">
-                    edit
-                  </Button> */}
-                  <Button basic color='pink' onClick={() => this.removeSkill(this.props.skill.id)}>
-                    delete
-                  </Button>
+                <Button style={{ border:"1px solid pink", backgroundColor: 'lightgrey'}} fluid size='large' animated='fade'>
+                     <Button.Content visible style={{  color: 'deeppink'}}>edit skill</Button.Content>
+                      <Button.Content hidden style={{ color: 'deeppink'}}><i aria-hidden="true" className="edit icon"></i></Button.Content>
+                 </Button>  
+                 <Button onClick={() => this.removeSkill(this.props.skill.id)} style={{ border:"1px solid pink", backgroundColor: 'lightgrey'}} fluid size='large' animated='fade'>
+                     <Button.Content visible style={{ color: 'deeppink'}}>remove skill</Button.Content>
+                      <Button.Content hidden style={{ color: 'deeppink'}}><i aria-hidden="true" className="delete icon"></i></Button.Content>
+                 </Button> 
                 </div>
               </Card.Content>
             </Card>

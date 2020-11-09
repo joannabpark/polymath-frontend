@@ -9,7 +9,7 @@ import {Link} from 'react-router-dom';
 
 // import GoogleMapReact from 'google-map-react';
 // import Geocode from "react-geocode";
-// Geocode.setApiKey("AIzaSyApLVD4Xtu_R7ytVUX5OkNGoGO-YIe2PQY")
+// Geocode.setApiKey("API_KEY")
 // Geocode.fromAddress("60642").then(
 //   response => {
 //     const { lat, lng } = response.results[0].geometry.location;
@@ -115,7 +115,7 @@ componentDidMount(){
                   <Container centered>
                       <h3 style={{textAlign: "left"}}>Featured Skill: </h3>
                       <Popup content='click to view details or to signup' 
-                   trigger={<Card style={{width: "80%"}}   as={Link} to={`/viewprofile/${randomSkill.user.id}`}>
+                   trigger={<Card style={{width: "80%", border:"1px solid pink"}}   as={Link} to={`/viewprofile/${randomSkill.user.id}`}>
                    <Image src={randomSkill.video_url} wrapped ui={false} />
                    <Card.Content>
                      <Card.Header style={{fontSize: "20px", color: "black"}}>{randomSkill.name}</Card.Header>
@@ -149,7 +149,7 @@ componentDidMount(){
 
                    {/* <div style={{ height: '70vh', width: '50%' }}>
                   <GoogleMapReact
-                    bootstrapURLKeys={{ key: 'AIzaSyApLVD4Xtu_R7ytVUX5OkNGoGO-YIe2PQY' }}
+                    bootstrapURLKeys={{ key: 'API_KEY' }}
                     defaultCenter={this.props.center}
                     defaultZoom={this.props.zoom}
                     yesIWantToUseGoogleMapApiInternals

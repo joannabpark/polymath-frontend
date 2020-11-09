@@ -97,7 +97,7 @@ renderMySkills = () => {
             <Grid divided="vertically">
                 <Grid.Row>
                     <Grid.Column width={5}>
-                            <Card fluid style={{marginTop:"40px", textAlign: "center", border:"1px groove pink"}}>
+                            <Card fluid style={{marginTop:"40px", textAlign: "center", border:"1px solid pink"}}>
                               <Image src={this.props.user.image_url} wrapped ui={false} />
                                 <Popup trigger={<button className="button ui" style={{color: "hotpink"}}>upload new profile pic</button>} position="top">
                                 <Form success onSubmit={this.handleSubmit} >

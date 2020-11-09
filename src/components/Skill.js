@@ -12,7 +12,7 @@ class Skill extends React.Component {
     render() {
         return ( 
                  <Popup content='click to view details or to signup' 
-                   trigger={<Card style={{width: "600px", border:"1px groove pink"}} visible centered
+                   trigger={<Card style={{width: "600px", border:"1px solid pink"}} visible centered
                      onClick={this.handleClick}>
                         <Card.Content>
                            <Card.Header style={{fontSize: "20px", color: "black"}}>{this.props.skill.name}</Card.Header>
