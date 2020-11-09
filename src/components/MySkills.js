@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Card, Form } from 'semantic-ui-react'
+import { Button, Card, Form, Container } from 'semantic-ui-react'
 import { deleteSkillSuccess } from '../actions/indSkill'
 import { connect } from 'react-redux'
 import { editSkillSuccess } from "../actions/indSkill";
@@ -12,7 +12,8 @@ class MySkills extends React.Component {
     id: "",
     name: "",
     category: "",
-    description: ""
+    description: "",
+    video_url: ""
   }
 
 componentDidMount() {
@@ -27,7 +28,8 @@ componentDidMount() {
           id: data.id, 
           name: data.name, 
           category: data.category, 
-          description: data.description
+          description: data.description,
+          video_url: data.video_url
          })
      })
     }
@@ -51,6 +53,7 @@ handleSubmit = (e) => {
             name: this.state.name,
             category: this.state.category,
             description: this.state.description,
+            video_url: this.state.video_url
         })
     }
     fetch(`http://localhost:3000/skills/${this.state.id}`, reqObj)
@@ -77,14 +80,15 @@ handleSubmit = (e) => {
 
     render() {
         return ( 
-            // <Card.Group>
-            <Card style={{width: "80%"}}>
+          <Container style={{paddingBottom: "15px"}}>
+            <Card style={{border: "1px groove pink"}} fluid centered>
+             <img src={this.props.skill.video_url} height={300}/>
               <Card.Content>
-                 <Card.Header>
-                 <Popup trigger={<a>{this.props.skill.name}</a>} position="right center">
-                     <Form onSubmit={this.handleSubmit}>
-                          <Form.Group widths='equal'>
-                               <input
+              <Card.Header>
+             <Popup trigger={<a style={{fontSize: "35px", color: "black"}}>{this.props.skill.name}</a>} position="right center">
+                   <Form onSubmit={this.handleSubmit}>
+                         <Form.Group widths='equal'>
+                                <input
                                as={<Form.Input />}
                                type="text" 
                                 name="name" 
@@ -100,7 +104,7 @@ handleSubmit = (e) => {
                    </Popup>
                  </Card.Header>
                 <Card.Meta>
-                <Popup trigger={<a>{this.props.skill.category}</a>} position="right center">
+                <Popup trigger={<a style={{fontSize: "15px", color: "slategrey"}}><i aria-hidden="true" class="tag icon"></i>{this.props.skill.category}</a>} position="right center">
                      <Form onSubmit={this.handleSubmit}>
                           <Form.Group widths='equal'>
                                  <input
@@ -118,8 +122,8 @@ handleSubmit = (e) => {
                        </Form>
                    </Popup>
                 </Card.Meta>
-                <Card.Description>
-                    {this.props.skill.description}
+                <Card.Description style={{fontSize: "18px", color: "slategrey"}}>
+                 <h3 style={{fontStyle: "bold", color: "lightgrey", paddingBottom:"10px"}}>Skill description:</h3> {this.props.skill.description}
                 </Card.Description>
               </Card.Content>
               <Card.Content extra>
@@ -127,13 +131,13 @@ handleSubmit = (e) => {
                   {/* <Button basic color='blue' as={Link} to="/myprofile/editskill">
                     edit
                   </Button> */}
-                  <Button basic color='purple' onClick={() => this.removeSkill(this.props.skill.id)}>
+                  <Button basic color='pink' onClick={() => this.removeSkill(this.props.skill.id)}>
                     delete
                   </Button>
                 </div>
               </Card.Content>
             </Card>
-            // </Card.Group>
+            </Container>
               )
          }
   }

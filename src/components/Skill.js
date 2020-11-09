@@ -11,15 +11,16 @@ class Skill extends React.Component {
 
     render() {
         return ( 
-            <Card centered>
-                 <Popup content='click to view provider profile' 
-                   trigger={<Card visible centered
-                     onClick={this.handleClick}
-                      header={this.props.skill.name}
-                      meta={this.props.skill.category}
-                       description={this.props.skill.description}
-                  />} />
-                  </Card>
+                 <Popup content='click to view details or to signup' 
+                   trigger={<Card style={{width: "600px", border:"1px groove pink"}} visible centered
+                     onClick={this.handleClick}>
+                        <Card.Content>
+                           <Card.Header style={{fontSize: "20px", color: "black"}}>{this.props.skill.name}</Card.Header>
+                           <Card.Meta style={{fontSize: "15px", color: "slategrey"}}>{this.props.skill.category}</Card.Meta>
+                        </Card.Content>
+                      </Card>
+                      } 
+                      />
                )
            }
   }

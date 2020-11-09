@@ -9,7 +9,8 @@ const indSkill = (state=initialState, action) => {
                         ...state, 
                         name: action.indSkill.name,
                         category: action.indSkill.category,
-                        description: action.indSkill.description
+                        description: action.indSkill.description,
+                        video_url: action.indSkill.video_url
                     }
                     return a
                 } else {

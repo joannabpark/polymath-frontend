@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 // import { Link } from "react-router-dom";
 import { deleteUser } from '../actions/user'
 import moment from 'moment';
-import { Grid, Card, Image, Form, Button } from 'semantic-ui-react'
+import { Grid, Card, Image, Form, Button, Container } from 'semantic-ui-react'
 import MySkills from './MySkills'
 import { editUserSuccess } from "../actions/user";
 import Popup from 'reactjs-popup';
@@ -87,13 +87,19 @@ renderMySkills = () => {
   render() { 
  
     return (
+      <div className='App'>
+      <div style={{height: "150px", backgroundColor: 'slategrey'}}>
+         <h1 style={{paddingTop: "50px", fontFamily: "system-ui", color: "white"}}>What skill do you want to learn next?</h1>
+        </div>
+      <div style={{height: "50px", backgroundColor: 'hotpink'}}>  
+      </div>
+      <Container>
             <Grid divided="vertically">
                 <Grid.Row>
-                    <Grid.Column width={8}>
-                    <div style={{marginTop: "40px"}}>
-                            <Card centered style={{width: "80%"}}>
+                    <Grid.Column width={5}>
+                            <Card fluid style={{marginTop:"40px", textAlign: "center", border:"1px groove pink"}}>
                               <Image src={this.props.user.image_url} wrapped ui={false} />
-                                <Popup trigger={<button className="button ui">upload new profile pic</button>} position="top">
+                                <Popup trigger={<button className="button ui" style={{color: "hotpink"}}>upload new profile pic</button>} position="top">
                                 <Form success onSubmit={this.handleSubmit} >
                                     <Form.Group>
                                         <input
@@ -114,7 +120,7 @@ renderMySkills = () => {
                                 {/* <Image src={this.props.user.image_url} wrapped ui={false} /> */}
                                 <Card.Content>
                                 <Card.Header>
-                                <Popup trigger={<a>{this.props.user.first_name}</a>} position="right center">
+                                <Popup trigger={<a style={{fontSize: "35px", color: "black"}}>{this.props.user.first_name}</a>} position="right center">
                                 <Form onSubmit={this.handleSubmit}>
                                     <Form.Group widths='equal'>
                                         <input
@@ -133,10 +139,10 @@ renderMySkills = () => {
                                      </Popup>
                                 </Card.Header>
                                 <Card.Meta>
-                                    <span className='date'>Joined in {moment(this.props.user.created_at).format('YYYY')}</span>
+                                    <span className='date' style={{fontSize: "15px", color: "slategrey"}}>Member since: {moment(this.props.user.created_at).format('MM/DD/YYYY')}</span>
                                 </Card.Meta>
                                 <Card.Description>
-                                <Popup trigger={<a>{this.props.user.email}</a>} position="right center">
+                                <Popup trigger={<a style={{fontSize: "15px", color: "slategrey"}}><i aria-hidden="true" class="at icon"></i>{this.props.user.email}</a>} position="right center">
                                 <Form onSubmit={this.handleSubmit}>
                                     <Form.Group widths='equal'>
                                         <input
@@ -154,7 +160,7 @@ renderMySkills = () => {
                                    </Form>
                                      </Popup>
                                      <br></br>
-                                <Popup trigger={<a>location: {this.props.user.location}</a>} position="right center">
+                                <Popup trigger={<a style={{fontSize: "15px", color: "slategrey"}}><i aria-hidden="true" class="location arrow icon"></i>location: {this.props.user.location}</a>} position="right center">
                                 <Form onSubmit={this.handleSubmit}>
                                     <Form.Group widths='equal'>
                                         <input
@@ -171,14 +177,22 @@ renderMySkills = () => {
                                         </Form.Group>
                                    </Form>
                                      </Popup>
-                                     <br></br>
-                                     <a>points: {this.props.user.points}</a>
+                                     <br></br><br></br><br></br>
+                                     <a style={{fontSize: "20px", color: "slategrey"}}>points: {this.props.user.points}</a>
                                 </Card.Description>
                                 
                                 </Card.Content>
                                 <Card.Content extra>
                                      <div style={{textAlign: "center"}}>
-                                     <Button onClick={() => this.deleteUser(this.props.user.id)}>delete account</Button>
+                                     <Button color='pink' fluid size='large' animated='fade' as={Link} to='/myprofile/newskill'>
+                                        <Button.Content visible>add new skill</Button.Content>
+                                        <Button.Content hidden style={{ color: 'hotpink'}}><i aria-hidden="true" className="plus icon"></i></Button.Content>
+                                    </Button>  
+                                    <br></br>
+                                    <Button color='pink' fluid size='large' animated='fade' onClick={() => this.deleteUser(this.props.user.id)}>
+                                        <Button.Content visible>delete account</Button.Content>
+                                        <Button.Content hidden style={{ color: 'hotpink'}}><i aria-hidden="true" className="delete icon"></i></Button.Content>
+                                    </Button>  
                                       </div>
                                 </Card.Content>
                             </Card>
@@ -197,44 +211,14 @@ renderMySkills = () => {
                             </Button> */}
                             {/* </div>
                         </div> */}
-                      </div>
                 </Grid.Column>
-                <Grid.Column width={8}>
-                    <Button as={Link} to='/myprofile/newskill'>new skill</Button>
-                {/* <Popup trigger={<a>+ new skill</a>} position="right center">
-                         <Form onSubmit={this.handleNewSkillSubmit}>
-                                    <Form.Group widths='equal'>
-                                        <input
-                                        as={<Form.Input />}
-                                        type="text" 
-                                            name="name" 
-                                            placeholder="name"
-                                             onChange={this.handleNewSkillChange}
-                                        />
-                                        <input
-                                        as={<Form.Input />}
-                                        type="text" 
-                                            name="category" 
-                                            placeholder="category"
-                                             onChange={this.handleNewSkillChange}
-                                        />
-                                        <input
-                                        as={<Form.Input />}
-                                        type="text" 
-                                            name="description" 
-                                            placeholder="description"
-                                             onChange={this.handleNewSkillChange}
-                                        />
-                                        <div style={{textAlign: "center"}}>
-                                          <Button>add skill</Button>
-                                       </div>
-                                   </Form.Group>
-                              </Form>
-                         </Popup> */}
+                <Grid.Column style={{paddingTop: "35px"}} width={11}>
                        {this.renderMySkills()} 
                  </Grid.Column>
             </Grid.Row>
-        </Grid>
+          </Grid>
+        </Container>
+        </div>
        )
   }
 };
