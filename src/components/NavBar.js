@@ -1,5 +1,5 @@
 import React from 'react'
-import { Input, Menu, Dropdown } from 'semantic-ui-react';
+import { Image, Menu, Dropdown } from 'semantic-ui-react';
 import {Link} from 'react-router-dom'
 import { logoutSuccess } from '../actions/user'
 import {connect} from 'react-redux' 
@@ -19,54 +19,43 @@ class NavBar extends React.Component {
     const { activeItem } = this.state
   return (
     <Menu>
-         {/* <Menu.Item
-          name='icon'
-          active={activeItem === 'icon'}
-          ><i aria-hidden="true" className="clipboard list icon"></i>
-        </Menu.Item> */}
        <Menu.Item
-          name='home'
-          active={activeItem === 'home'}
-          onClick={this.handleItemClick}
-          as={Link} 
-          to='/feed'
-          ><i aria-hidden="true" className="home icon"></i>home
-        </Menu.Item>
+                 name='home'
+                 onClick={this.handleItemClick}
+                 as={Link} 
+                 to='/feed'>
+          <Image src="/logo.png" style={{width:"90px", height:"30px"}}></Image>
+      </Menu.Item>
+      {this.props.user.id
+      ?
         <Menu.Item
-           name='my profile'
-           active={activeItem === 'my profile'}
-           onClick={this.handleItemClick}
-           as={Link}
-           to={'/myprofile'}
-            ><i aria-hidden="true" className="user icon"></i>my profile
-        </Menu.Item>
-        <Dropdown item text='my lessons'>
-          <Dropdown.Menu>
-            <Dropdown.Item as={Link} to="/myprofile/providinglessons">providing lessons</Dropdown.Item>
-            <Dropdown.Item as={Link} to="/myprofile/receivinglessons">receiving lessons</Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-        <Menu.Item
+          position="right"
            name='inbox'
            active={activeItem === 'inbox'}
            onClick={this.handleItemClick}
            as={Link}
            to={'/inbox'}
-            > <i aria-hidden="true" className="mail icon"></i>inbox
+            > <i aria-hidden="true" className="mail icon"></i>messages
         </Menu.Item>
-          <Menu.Item position='right'>
-              {
-                this.props.user.id
-                ?
-                <Link to='/login' className="ui button" onClick={this.handleLogout} >
-                <i aria-hidden="true" className="sign out icon"></i>Logout
-                </Link>
-                : 
-                <Link to='/login' className="ui button" >
-                Login
-                </Link>   
-              }
-          </Menu.Item>
+        : null}
+        {this.props.user.id
+         ?
+        <Dropdown item 
+         style={{paddingRight:"5%"}}
+          text={<Image
+          size='mini'
+           src={`${this.props.user.image_url}`}
+            style={{borderRadius:"50%"}}
+         />} >
+          <Dropdown.Menu>
+              <Dropdown.Item as={Link} to="/myprofile">my profile</Dropdown.Item>
+               <Dropdown.Item as={Link} to="/myprofile/providinglessons">providing lessons</Dropdown.Item>
+                <Dropdown.Item as={Link} to="/myprofile/receivinglessons">receiving lessons</Dropdown.Item>
+               <Dropdown.Item as={Link} to="/login" onClick={this.handleLogout}><i aria-hidden="true" className="sign out icon"></i>logout
+             </Dropdown.Item>         
+         </Dropdown.Menu>
+        </Dropdown>
+        : null}
     </Menu>
     );
   }

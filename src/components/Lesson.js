@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 // import moment from 'moment';
 import moment from 'moment-timezone';
-import { Container, Button, Popup } from 'semantic-ui-react'
+import { Container, Button, Popup, Card } from 'semantic-ui-react'
 // import Popup from 'reactjs-popup';
 import {Link} from 'react-router-dom';
 import { deleteLessonSuccess } from '../actions/lessons'
@@ -10,6 +10,12 @@ import { updateUserPoints } from '../actions/user'
 import { updateUserviewPoints } from '../actions/userview'
 import toaster from "toasted-notes";
 import "./styling.css";
+
+const gapi = window.gapi
+const CLIENT_ID = "961833843324-gqo5m10obsg5a7kb4klt5nl9pha80nuc.apps.googleusercontent.com"
+const API_KEY = "AIzaSyAvvKKY5VGJuoVN7dghxc7WcMzsNzz8k6E"
+const DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"]
+const SCOPES = "https://www.googleapis.com/auth/calendar"
 
 class Lesson extends React.Component {
 
@@ -74,30 +80,122 @@ deleteLesson = (id) => {
   })
 }
 
+handleClick = () => {
+  debugger
+  gapi.load('client:auth2', () => {
+    console.log('loaded client')
+
+    gapi.client.init({
+      apiKey: API_KEY,
+      clientId: CLIENT_ID,
+      discoveryDocs: DISCOVERY_DOCS,
+      scope: SCOPES,
+    })
+
+    gapi.client.load('calendar', 'v3', () => console.log('bam!'))
+
+    gapi.auth2.getAuthInstance().signIn()
+
+    .then(() => {
+      let event = {
+        'summary': `${this.props.lesson.skill_name}`,
+        'location': `${this.props.userview.location}`,
+        'description': `${this.props.lesson.description}`,
+        'start': {
+          'dateTime': `${this.props.lesson.date.slice(0, 23)}`,
+          'timeZone': 'America/Chicago'
+        },
+        'end': {
+          'dateTime': `${this.props.lesson.date.slice(0, 23)}`,
+          'timeZone': 'America/Chicago'
+        },
+        'attendees': [
+          {'email': `${this.props.user.email}`},
+          {'email': `${this.props.userview.email}`}
+        ],
+        'reminders': {
+          'useDefault': false,
+          'overrides': [
+            {'method': 'email', 'minutes': 24 * 60},
+            {'method': 'popup', 'minutes': 10}
+          ]
+        }
+      }
+
+      var request = gapi.client.calendar.events.insert({
+        'calendarId': 'primary',
+        'resource': event,
+      })
+
+      request.execute(event => {
+        console.log(event)
+        window.open(event.htmlLink)
+      })
+      
+      gapi.client.calendar.events.list({
+        'calendarId': 'primary',
+        'timeMin': (new Date()).toISOString(),
+        'showDeleted': false,
+        'singleEvents': true,
+        'maxResults': 10,
+        'orderBy': 'startTime'
+      }).then(response => {
+        const events = response.result.items
+        console.log('EVENTS: ', events)
+      })
+    })
+  })
+}
+
+
     render() {
     return ( 
-      <Popup content="click to view provider profile" trigger={<Container as={Link} to={`/viewprofile/${this.props.lesson.provider_id}`}>
-      <br></br>
-       <div className="ui centered card"> 
-        <div className="content">
-         <div className="header">{this.props.lesson.skill_name}    
-        </div>
-          <div className="meta">{moment.tz(`${this.props.lesson.date}`, 'Europe/Dublin').format('LLL')}</div>
-         <div className="description">{this.props.lesson.description}</div>
-        </div>
-        <div className="ui animated button" >
-        {/* onClick={() => this.deleteLesson(this.props.lesson.id)}  */}
-                   <Button animated='fade' onClick={() =>  this.handleUserPoints(this.props.user.id)} >
-              <Button.Content visible><i className="check icon"></i></Button.Content>
-             <Button.Content hidden style={{ color: 'hotpink'}}>done?</Button.Content>
-           </Button>
-          {/* <Button animated='fade'>
-              <Button.Content visible><i className="cancel icon" ></i></Button.Content>
-              <Button.Content hidden style={{ color: 'hotpink'}}>cancel</Button.Content>
-         </Button> */}
-       </div>
-    </div>
- </Container>} position='top center'/>
+      <Popup content="click to view provider profile" trigger={
+            <Container style={{paddingBottom: "15px"}}>
+                <Card as={Link} to={`/viewprofile/${this.props.lesson.provider_id}`} style={{border: "1px solid pink", width:"50%"}} fluid centered>
+                {/* <img src={this.props.lesson.video_url} height={300}/> */}
+                  <Card.Content>
+                    <Card.Header style={{fontSize: "35px", color: "black"}}>{this.props.lesson.skill_name}  </Card.Header>
+                    <Card.Meta style={{fontSize: "15px", color: "slategrey"}}>{moment.tz(`${this.props.lesson.date}`, 'Europe/Dublin').format('LLL')}</Card.Meta>
+                    <Card.Description style={{fontSize: "18px", color: "slategrey"}}>
+                    <h3 style={{fontStyle: "bold", color: "lightgrey", paddingBottom:"10px"}}>Skill description:</h3> {this.props.lesson.description}
+                    </Card.Description>
+                  </Card.Content>
+                  <Card.Content extra>
+                       <div className="ui two buttons">
+                        <Button fluid size='large' animated='fade' onClick={this.handleClick}>
+                            <Button.Content visible style={{ color: 'deeppink'}}>add to calendar</Button.Content>
+                              <Button.Content hidden style={{ color: 'deeppink'}}><i className="google icon"></i></Button.Content>
+                        </Button>
+                        <br></br>
+                          <Button color='pink' fluid size='large' animated='fade' onClick={() =>  this.handleUserPoints(this.props.user.id)} >
+                            <Button.Content visible style={{ color: 'lightgrey'}}>done?</Button.Content>
+                            <Button.Content hidden style={{ color: 'lightgrey'}}><i className="check icon"></i></Button.Content>
+                        </Button>
+                      </div>
+                  </Card.Content>
+                </Card>
+         </Container>
+//       <Container as={Link} to={`/viewprofile/${this.props.lesson.provider_id}`}>
+//       <br></br>
+//        <div className="ui centered card"> 
+//         <div className="content">
+//          <div className="header">{this.props.lesson.skill_name}    
+//         </div>
+//           <div className="meta">{moment.tz(`${this.props.lesson.date}`, 'Europe/Dublin').format('LLL')}</div>
+//          <div className="description">{this.props.lesson.description}</div>
+//         </div>
+//         <div className="ui animated button" >
+//         {/* onClick={() => this.deleteLesson(this.props.lesson.id)}  */}
+//                    <Button animated='fade' onClick={() =>  this.handleUserPoints(this.props.user.id)} >
+//               <Button.Content visible><i className="check icon"></i></Button.Content>
+//              <Button.Content hidden style={{ color: 'hotpink'}}>done?</Button.Content>
+//            </Button>
+//        </div>
+//     </div>
+//  </Container>
+ 
+} position='top center'/>
         
       )
     }

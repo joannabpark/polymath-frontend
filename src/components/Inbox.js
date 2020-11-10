@@ -2,6 +2,7 @@ import React from 'react';
 import Message from './Message';
 import { connect } from 'react-redux';
 import { fetchMessagesSuccess } from '../actions/messages'
+import { Container } from 'semantic-ui-react'
 
 class Inbox extends React.Component {
 
@@ -28,10 +29,13 @@ class Inbox extends React.Component {
 
     render () {
         return (
+          <Container>
             <div className='App'>
+                   <h2 style={{padding: "20px", textAlign: "center", color: "slategrey", fontFamily: "Trebuchet MS"}}>My Messages:</h2>
                    {this.renderMessages()}
                  <br></br>
-            </div>
+             </div>
+           </Container>
         )
       }
   }

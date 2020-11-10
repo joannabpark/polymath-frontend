@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { newMessageSuccess } from '../actions/messages'
 import { repliedStatusUpdate } from '../actions/messages'
 import moment from 'moment-timezone';
-import { Form, Button, Card, Icon } from 'semantic-ui-react'
+import { Form, Button, Card, Image } from 'semantic-ui-react'
 import Popup from 'reactjs-popup';
 import toaster from "toasted-notes";
 import "./styling.css";
@@ -17,6 +17,14 @@ class Message extends React.Component {
     recipient_id: this.props.message.sender_id,
     replied: false,
     error: null
+}
+
+componentDidMount() {
+  const token = localStorage.getItem('app_token')
+
+  if (!token){
+  this.props.history.push('/login')
+  }
 }
 
   handleMessageChange = (e) => {
@@ -82,34 +90,37 @@ handleReplied = () => {
 
     render() {
         return ( 
-            <Card centered>
-                    <Card.Content visible centered
-                          header={`from ${this.props.message.sender.first_name}:`}
-                          meta={`sent on ${moment.tz(`${this.props.message.created_at}`, 'Europe/Dublin').format('lll')}`}
-                          description={this.props.message.content}
-                      />
-                      <div style={{textAlign: "center"}}>
-                      <Popup trigger={<button className="button ui">Reply</button>} position="right">
-                                <Form success onSubmit={this.handleNewMessageSubmit}>
+              <Card centered style={{width: "500px", border: "1px solid pink"}}>
+                   <Card.Content>
+                   <Image
+                        size='mini'
+                        src={`${this.props.message.sender.image_url}`}
+                        style={{float: "right"}}
+                      />                       <Card.Header style={{textAlign: "left", fontSize: "20px", color: "black"}}>from {this.props.message.sender.first_name}:</Card.Header>
+                     <Card.Meta style={{textAlign: "left", fontSize: "15px", color: "slategrey"}}>sent on {moment.tz(`${this.props.message.created_at}`, 'Europe/Dublin').format('lll')}</Card.Meta>
+                     <Card.Description style={{textAlign: "left", paddingTop: "5px", fontSize: "22px", color: "deepslategrey"}}>
+                         {this.props.message.content}
+                     </Card.Description>
+                      </Card.Content>
+                      <Card.Content extra>
+                      <Popup trigger={<button className="button ui large" style={{width: "90%", color: "deeppink"}}><i aria-hidden="true" className="chat icon"></i>Reply</button>} position="right">
+                                 <Form success onSubmit={this.handleNewMessageSubmit}>
                                  <input
                                         as={<Form.Input width='equal'/>}
                                             type="text" 
-                                            name="content" 
-                                            placeholder="new message"
-                                             onChange={this.handleMessageChange}
-                                        />
-                                          <Button>Send</Button>
-                                    </Form>
+                                           name="content" 
+                                           placeholder="new message"
+                                              onChange={this.handleMessageChange}
+                                         />
+                                      <Button color='pink' fluid size='large' animated='fade'>
+                                        <Button.Content visible>send</Button.Content>
+                                        <Button.Content hidden style={{ color: 'hotpink'}}><i aria-hidden="true" className="send icon"></i></Button.Content>
+                                    </Button>                                      </Form>
                                 </Popup>
-                          {/*  */}
-                      </div><br></br>
-                      <Card.Content extra>
-                       <p>Replied? {this.props.message.replied ? <Icon name='check' /> : null }
-</p> 
                       </Card.Content>
                </Card>
-               )
-           }
+          )
+       }
   }
   
   const mapStateToProps = (state) => {

@@ -89,10 +89,10 @@ renderMySkills = () => {
     return (
       <div className='App'>
       <div style={{height: "150px", backgroundColor: 'slategrey'}}>
-         <h1 style={{paddingTop: "50px", fontFamily: "system-ui", color: "white"}}>What skill do you want to learn next?</h1>
+         <h1 style={{paddingTop: "50px", fontFamily: "system-ui", color: "white"}}>Receive a point when you provide a skill</h1>
         </div>
-      <div style={{height: "50px", backgroundColor: 'hotpink'}}>  
-      </div>
+        <div className="stack-top">
+         </div>
       <Container>
             <Grid divided="vertically">
                 <Grid.Row>
@@ -196,28 +196,13 @@ renderMySkills = () => {
                                       </div>
                                 </Card.Content>
                             </Card>
-                            {/* <div className="ui animated button" > */}
-                                {/* <Button animated='fade' as={Link} to={`/home/${this.state.note.id}/form`}>
-                                    <Button.Content visible><i className="mail icon"></i></Button.Content>
-                                <Button.Content hidden style={{ color: 'hotpink'}}>email</Button.Content>
-                                </Button>
-                                <Button animated='fade' as={Link} to={`/home/edit/${this.state.note.id}`}>
-                                    <Button.Content visible><i className="edit icon" ></i></Button.Content>
-                                    <Button.Content hidden style={{ color: 'hotpink'}}>edit</Button.Content>
-                                </Button>
-                                <Button animated='fade' onClick={() => this.deleteNote(this.state.note.id)}>
-                                    <Button.Content visible><i className="trash icon" ></i></Button.Content>
-                                    <Button.Content hidden style={{ color: 'hotpink'}}>delete</Button.Content>
-                            </Button> */}
-                            {/* </div>
-                        </div> */}
-                </Grid.Column>
-                <Grid.Column style={{paddingTop: "35px"}} width={11}>
-                       {this.renderMySkills()} 
-                 </Grid.Column>
-            </Grid.Row>
-          </Grid>
-        </Container>
+                        </Grid.Column>
+                        <Grid.Column style={{paddingTop: "35px"}} width={11}>
+                         {this.renderMySkills()} 
+                        </Grid.Column>
+                    </Grid.Row>
+                 </Grid>
+             </Container>
         </div>
        )
   }

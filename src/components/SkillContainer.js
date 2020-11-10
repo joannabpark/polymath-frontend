@@ -6,6 +6,7 @@ import { currentUser } from '../actions/user';
 import Skill from './Skill';
 import { searchSkills } from '../actions/search';
 import {Link} from 'react-router-dom';
+import './styling.css'
 
 // import GoogleMapReact from 'google-map-react';
 // import Geocode from "react-geocode";
@@ -39,7 +40,7 @@ class SkillContainer extends React.Component {
 
 componentDidMount(){
     const token = localStorage.getItem('app_token')
-    // console.log(token)
+    console.log(token)
     if (!token){
       this.props.history.push('/login')
     } else {
@@ -94,7 +95,7 @@ componentDidMount(){
               <div style={{height: "150px", backgroundColor: 'slategrey'}}>
                   <h1 style={{paddingTop: "50px", fontFamily: "system-ui", color: "white"}}>What skill do you want to learn next?</h1>
               </div>
-              <div style={{height: "50px", backgroundColor: 'hotpink'}}>
+              <div className="stack-top">
                 <div style={{paddingTop: "6px"}}>
                  <Menu.Item><a style={{fontSize: "18px", fontFamily: "system-ui", color: "white"}}>Enter skill you want to learn: </a>
                      <Input onChange={this.handleChange} icon='search' placeholder='Search...' />
@@ -105,7 +106,7 @@ componentDidMount(){
                 <Grid.Row>
                     <Grid.Column width={10}>
                  <br></br>
-                  <Container centered>
+                  <Container centered style={{paddingTop: "30px"}}>
                    {this.renderSkills()}
                    </Container>
                  <br></br>
@@ -115,7 +116,7 @@ componentDidMount(){
                   <Container centered>
                       <h3 style={{textAlign: "left"}}>Featured Skill: </h3>
                       <Popup content='click to view details or to signup' 
-                   trigger={<Card style={{width: "80%", border:"1px solid pink"}}   as={Link} to={`/viewprofile/${randomSkill.user.id}`}>
+                   trigger={<Card style={{width: "80%", border:"1px solid pink"}} as={Link} to={`/viewprofile/${randomSkill.user.id}`}>
                    <Image src={randomSkill.video_url} wrapped ui={false} />
                    <Card.Content>
                      <Card.Header style={{fontSize: "20px", color: "black"}}>{randomSkill.name}</Card.Header>
@@ -162,7 +163,6 @@ componentDidMount(){
                     />
                   </GoogleMapReact>
                 </div> */}
-
 
 const mapStateToProps = (state) => {
   return {

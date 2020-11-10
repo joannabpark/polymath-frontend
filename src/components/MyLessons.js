@@ -21,7 +21,7 @@ class MyLessons extends React.Component {
     render(){
      return ( 
          <div>
-           <h4>Incompleted Receiving Lessons:</h4>
+           <h2 style={{padding: "20px", textAlign: "center", color: "slategrey", fontFamily: "Trebuchet MS"}}>Incompleted Receiving Lessons:</h2>
              {this.renderLessons()}
          </div>
        )

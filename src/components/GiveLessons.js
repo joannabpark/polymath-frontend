@@ -23,10 +23,10 @@ class GiveLessons extends React.Component {
 
     render(){
      return ( 
-         <div>
-           <h4>Incompleted Providing Lessons:</h4>
-                {this.renderProvidingLessons()}
-         </div>
+      <div>
+      <h2 style={{padding: "20px", textAlign: "center", color: "slategrey", fontFamily: "Trebuchet MS"}}>Incompleted Providing Lessons:</h2>
+        {this.renderProvidingLessons()}
+     </div>
        )
       }
 }

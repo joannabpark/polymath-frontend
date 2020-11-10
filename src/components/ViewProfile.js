@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import moment from 'moment';
 import { fetchUserSuccess } from '../actions/userview';
 import { newMessageSuccess } from '../actions/messages'
-import { Grid, Card, Image, Button, Form } from 'semantic-ui-react'
+import { Grid, Card, Image, Button, Form, Container } from 'semantic-ui-react'
 import ViewSkills from './ViewSkills'
 import Popup from 'reactjs-popup';
 import toaster from "toasted-notes";
@@ -22,11 +22,11 @@ class ViewProfile extends React.Component {
     }
     
     componentDidMount() {
-        // const token = localStorage.getItem('app_token')
+        const token = localStorage.getItem('app_token')
 
-        // if (!token){
-        // this.props.history.push('/login')
-        // } else {
+        if (!token){
+        this.props.history.push('/login')
+        } else {
         const userId = this.props.match.params.id
         fetch(`http://localhost:3000/users/${userId}`)
         .then(resp => resp.json())
@@ -36,6 +36,7 @@ class ViewProfile extends React.Component {
                 fetched: true
             })
          })
+      }
     }
 
     handleMessageChange = (e) => {
@@ -96,25 +97,34 @@ class ViewProfile extends React.Component {
 
   render() { 
     return (
-        <Grid divided="vertically">
-        <Grid.Row>
-            <Grid.Column width={8}>
-              <div style={{marginTop: "40px"}}>
-                    <Card centered>
+      <div className='App'>
+       <div style={{height: "150px", backgroundColor: 'slategrey'}}>
+           <h1 style={{paddingTop: "50px", fontFamily: "system-ui", color: "white"}}>Use your points to learn skills</h1>
+          </div>
+          <div className="stack-top">
+             <div style={{paddingTop: "13px"}}>
+               <a style={{fontSize: "18px", fontFamily: "system-ui", color: "white"}}>Click the sign up button to schedule your next lesson</a>
+            </div>
+           </div>
+       <Container>
+          <Grid divided="vertically">
+             <Grid.Row>
+                <Grid.Column width={5}>
+                    <Card fluid style={{borderRadius:"5px", marginTop:"40px", textAlign: "center", border:"1px solid pink"}}>
                         <Image src={this.props.userview.image_url} wrapped ui={false} />
                         <Card.Content>
-                        <Card.Header>{this.props.userview.first_name}</Card.Header>
+                        <Card.Header style={{fontSize: "35px", color: "black"}}>{this.props.userview.first_name}</Card.Header>
                         <Card.Meta>
-                            <span className='date'>Joined in {moment(this.props.userview.created_at).format('YYYY')}</span>
+                            <span className='date' style={{fontSize: "15px", color: "slategrey"}}>Member since: {moment(this.props.userview.created_at).format('MM/DD/YYYY')}</span>
                         </Card.Meta>
                         <Card.Description>
-                             <a>{this.props.userview.email}</a>
+                             <a style={{fontSize: "15px", color: "slategrey"}}><i aria-hidden="true" class="at icon"></i>{this.props.userview.email}</a>
                             <br></br>
-                            <a>location: {this.props.userview.location}</a>
+                            <a style={{fontSize: "15px", color: "slategrey"}}><i aria-hidden="true" class="location arrow icon"></i>location: {this.props.userview.location}</a>
                         </Card.Description>
                         </Card.Content>
                         <Card.Content extra>
-                          <Popup trigger={<button className="ui button">message {this.props.userview.first_name}</button>} position="right">
+                          <Popup trigger={<button className="ui button large" style={{width: "90%", color: "deeppink"}}><i aria-hidden="true" className="chat icon"></i>send me a message</button>} position="right">
                                 <Form success onSubmit={this.handleNewMessageSubmit}>
                                  <input
                                         as={<Form.Input width='equal'/>}
@@ -123,35 +133,22 @@ class ViewProfile extends React.Component {
                                             placeholder="new message"
                                              onChange={this.handleMessageChange}
                                         />
-                                          <Button>Send</Button>
+                                     <Button color='pink' fluid size='large' animated='fade'>
+                                        <Button.Content visible>send</Button.Content>
+                                        <Button.Content hidden style={{ color: 'hotpink'}}><i aria-hidden="true" className="send icon"></i></Button.Content>
+                                    </Button>  
                                     </Form>
                                 </Popup>
                         </Card.Content>
                     </Card>
-                    
-                    {/* <div className="ui animated button" > */}
-                        {/* <Button animated='fade' as={Link} to={`/home/${this.state.note.id}/form`}>
-                            <Button.Content visible><i className="mail icon"></i></Button.Content>
-                        <Button.Content hidden style={{ color: 'hotpink'}}>email</Button.Content>
-                        </Button>
-                        <Button animated='fade' as={Link} to={`/home/edit/${this.state.note.id}`}>
-                            <Button.Content visible><i className="edit icon" ></i></Button.Content>
-                            <Button.Content hidden style={{ color: 'hotpink'}}>edit</Button.Content>
-                        </Button>
-                        <Button animated='fade' onClick={() => this.deleteNote(this.state.note.id)}>
-                            <Button.Content visible><i className="trash icon" ></i></Button.Content>
-                            <Button.Content hidden style={{ color: 'hotpink'}}>delete</Button.Content>
-                    </Button> */}
-                    {/* </div>
-                </div> */}
-              </div>
-        </Grid.Column>
-        <Grid.Column width={8}>
-            {/* {this.renderSkills()} */}
-             {this.state.fetched ? this.renderSkills() : null}
-        </Grid.Column>
-    </Grid.Row>
-</Grid>
+                </Grid.Column>
+                <Grid.Column style={{paddingTop: "35px"}} width={11}>
+                  {this.state.fetched ? this.renderSkills() : null}
+               </Grid.Column>
+            </Grid.Row>
+         </Grid>
+        </Container>
+      </div>
     )
   }
 };

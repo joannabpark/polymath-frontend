@@ -1,11 +1,13 @@
 
 import React from 'react';
-import { Button, Form, Grid, Header, Image, Message, Segment, Container } from 'semantic-ui-react';
+import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
 import { loginSuccess } from '../actions/user';
 import { connect } from 'react-redux';
-import { Link } from "react-router-dom";
 import toaster from "toasted-notes";
 import "./styling.css";
+// import { GoogleLogin } from 'react-google-login';
+
+// const clientId = "408666813901-269vm5keg00f78n3gma3iul944lsgm4b.apps.googleusercontent.com"
 
 class Login extends React.Component {
 
@@ -14,6 +16,43 @@ class Login extends React.Component {
     password: '123',
     error: null
   }
+
+//   onSuccess = (res) => {
+//     const reqObj = {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json'
+//       },
+//       body: JSON.stringify(this.state)
+//     }
+//     fetch('http://localhost:3000/users/login', reqObj)
+//     .then(resp => resp.json())
+//     .then(data => {
+//       //   console.log(data)
+//       if (data.error) {
+//         this.setState({
+//         error: data.error
+//       })
+//       } else {
+//     console.log('[Login Success] currentUser:', res.profileObj)
+//     this.setState({
+//       first_name: res.profileObj.givenName,
+//       image_url: res.profileObj.imageUrl,
+//       email: res.profileObj.email
+//      })
+//      localStorage.setItem('app_token', data.token)
+//      this.props.loginSuccess(data.user)
+//      toaster.notify(`welcome ${data.user.first_name}!`, {
+//        duration: 2000
+//      })
+//      this.props.history.push('/feed')
+//     }
+//   })
+// }
+
+//   onFailure = (res) => {
+//     console.log('[Login failed] res:', res)
+//   }
 
   handleInputChange = (e) => {
     this.setState({
@@ -82,6 +121,14 @@ class Login extends React.Component {
                      </Button>         
                    </Segment>
                  </Form>
+                 {/* <GoogleLogin
+                  clientId={clientId}
+                  buttonText="Login"
+                  onSuccess={this.onSuccess}
+                  onFailure={this.onFailure}
+                  cookiePolicy={'single_host_origin'}
+                  inSignedIn={true}
+                  /> */}
                  <Message> New to us? <a href='/newuser'>Sign Up</a>
                      {/* <Button color='pink' fluid size='large' animated='fade'>
                          <Button.Content visible>sign up</Button.Content>
