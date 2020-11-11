@@ -3,6 +3,7 @@ import { Image, Menu, Dropdown } from 'semantic-ui-react';
 import {Link} from 'react-router-dom'
 import { logoutSuccess } from '../actions/user'
 import {connect} from 'react-redux' 
+// import { withRouter } from 'react-router-dom'
 
 class NavBar extends React.Component {
   state = { activeItem: 'home' }
@@ -13,7 +14,6 @@ class NavBar extends React.Component {
     this.props.logoutSuccess()
     localStorage.removeItem('app_token')
   }
-
 
   render() {
     const { activeItem } = this.state
@@ -69,7 +69,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-  logoutSuccess,
+  logoutSuccess
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar)
+// withRouter(NavBar)

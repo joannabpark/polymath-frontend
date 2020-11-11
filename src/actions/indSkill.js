@@ -1,13 +1,6 @@
 
 // const URL = 'http://localhost:3000/skills'
 
-export const editSkillSuccess = (indSkill) => {
-    return {
-        type: 'EDIT_SKILL_SUCCESS',
-        indSkill: indSkill
-    }
-  }
-
  export const deleteSkillSuccess = (id) => {
       return {
         type: 'DELETE_SKILL_SUCCESS',

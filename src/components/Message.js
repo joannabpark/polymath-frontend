@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { newMessageSuccess } from '../actions/messages'
 import { repliedStatusUpdate } from '../actions/messages'
 import moment from 'moment-timezone';
-import { Form, Button, Card, Image } from 'semantic-ui-react'
+import { Form, Button, Card, Image, Icon } from 'semantic-ui-react'
 import Popup from 'reactjs-popup';
 import toaster from "toasted-notes";
 import "./styling.css";
@@ -96,7 +96,8 @@ handleReplied = () => {
                         size='mini'
                         src={`${this.props.message.sender.image_url}`}
                         style={{float: "right"}}
-                      />                       <Card.Header style={{textAlign: "left", fontSize: "20px", color: "black"}}>from {this.props.message.sender.first_name}:</Card.Header>
+                      />                       
+                      <Card.Header style={{textAlign: "left", fontSize: "20px", color: "black"}}>from {this.props.message.sender.first_name}:</Card.Header>
                      <Card.Meta style={{textAlign: "left", fontSize: "15px", color: "slategrey"}}>sent on {moment.tz(`${this.props.message.created_at}`, 'Europe/Dublin').format('lll')}</Card.Meta>
                      <Card.Description style={{textAlign: "left", paddingTop: "5px", fontSize: "22px", color: "deepslategrey"}}>
                          {this.props.message.content}
@@ -115,8 +116,11 @@ handleReplied = () => {
                                       <Button color='pink' fluid size='large' animated='fade'>
                                         <Button.Content visible>send</Button.Content>
                                         <Button.Content hidden style={{ color: 'hotpink'}}><i aria-hidden="true" className="send icon"></i></Button.Content>
-                                    </Button>                                      </Form>
+                                    </Button>                                      
+                                    </Form>
                                 </Popup>
+                                <p>Replied? {this.props.message.replied ? <Icon name='check' /> : null }
+                                </p> 
                       </Card.Content>
                </Card>
           )

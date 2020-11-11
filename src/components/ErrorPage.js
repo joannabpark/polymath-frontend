@@ -1,7 +1,8 @@
 import React from 'react';
 import { Grid, Message } from 'semantic-ui-react'
 
-const ErrorPage = () => {
+const ErrorPage = (props) => {
+
   return (
     <Grid>
     <Grid.Row centered>

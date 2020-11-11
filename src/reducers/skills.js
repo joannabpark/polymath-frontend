@@ -11,6 +11,7 @@ const skills = (state=initialState, action) => {
         // case "ADD_SKILL_SUCCESS":
         //     return [...state, action.skill]
         // case "EDIT_SKILL_SUCCESS":
+
         default:
             return state
     }

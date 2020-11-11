@@ -23,7 +23,6 @@ class ViewProfile extends React.Component {
     
     componentDidMount() {
         const token = localStorage.getItem('app_token')
-
         if (!token){
         this.props.history.push('/login')
         } else {
@@ -46,7 +45,6 @@ class ViewProfile extends React.Component {
       }
 
     handleNewMessageSubmit = (e) => {
-      debugger
         e.preventDefault()
         const reqObj = {
             method: 'POST',

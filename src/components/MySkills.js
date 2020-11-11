@@ -2,10 +2,10 @@ import React from 'react'
 import { Button, Card, Form, Container } from 'semantic-ui-react'
 import { deleteSkillSuccess } from '../actions/indSkill'
 import { connect } from 'react-redux'
-import { editSkillSuccess } from "../actions/indSkill";
+// import { editSkillSuccess } from "../actions/indSkill";
 import Popup from 'reactjs-popup';
 import './styling.css'
-// import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 class MySkills extends React.Component {
 
@@ -36,35 +36,35 @@ componentDidMount() {
     }
   }
 
-  handleChange = (e) => {
-    this.setState({
-        [e.target.name]: e.target.value
-    })
-}
+//   handleChange = (e) => {
+//     this.setState({
+//         [e.target.name]: e.target.value
+//     })
+// }
 
-handleSubmit = (e) => {
-    e.preventDefault()
-    const reqObj = {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            id: this.state.id,
-            name: this.state.name,
-            category: this.state.category,
-            description: this.state.description,
-            video_url: this.state.video_url
-        })
-    }
-    fetch(`http://localhost:3000/skills/${this.state.id}`, reqObj)
-    .then(resp => resp.json())
-    .then(data => {
-      console.log(data)
-        this.props.editSkillSuccess(data)
-        this.props.history.push(`/myprofile`)
-    })
-}
+// handleSubmit = (e) => {
+//     e.preventDefault()
+//     const reqObj = {
+//         method: "PATCH",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify({
+//             id: this.state.id,
+//             name: this.state.name,
+//             category: this.state.category,
+//             description: this.state.description,
+//             video_url: this.state.video_url
+//         })
+//     }
+//     fetch(`http://localhost:3000/skills/${this.state.id}`, reqObj)
+//     .then(resp => resp.json())
+//     .then(data => {
+//       console.log(data)
+//         this.props.editSkillSuccess(data)
+//         this.props.history.push(`/myprofile`)
+//     })
+// }
 
   removeSkill = (id) => {
     const reqObj = {
@@ -129,7 +129,7 @@ handleSubmit = (e) => {
               </Card.Content>
               <Card.Content extra>
                 <div className='ui two buttons'>
-                <Button style={{ border:"1px solid pink", backgroundColor: 'lightgrey'}} fluid size='large' animated='fade'>
+                <Button as={Link} to={`/myprofile/editskill/${this.props.skill.id}`} style={{ border:"1px solid pink", backgroundColor: 'lightgrey'}} fluid size='large' animated='fade'>
                      <Button.Content visible style={{  color: 'deeppink'}}>edit skill</Button.Content>
                       <Button.Content hidden style={{ color: 'deeppink'}}><i aria-hidden="true" className="edit icon"></i></Button.Content>
                  </Button>  
@@ -155,7 +155,7 @@ const mapStateToProps = (state) => {
 
   const mapDispatchToProps = {
     deleteSkillSuccess,
-    editSkillSuccess
+    // editSkillSuccess
   }
   
   export default connect(mapStateToProps, mapDispatchToProps)(MySkills);

@@ -17,6 +17,14 @@ const SCOPES = "https://www.googleapis.com/auth/calendar"
 
 class GiveLesson extends React.Component {
 
+  componentDidMount() {
+    const token = localStorage.getItem('app_token')
+    console.log(token)
+    if (!token){
+      this.props.history.push('/login')
+    }
+  }
+
   handleUserPoints = () => {
     const reqObj = {
         method: 'PATCH', 

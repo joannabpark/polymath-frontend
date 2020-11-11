@@ -19,6 +19,14 @@ class ViewSkills extends React.Component {
     error: null,
   };
 
+  componentDidMount() {
+    const token = localStorage.getItem('app_token')
+    console.log(token)
+    if (!token){
+      this.props.history.push('/login')
+    }
+  }
+
   handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value,

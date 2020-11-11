@@ -1,9 +1,15 @@
 import React from 'react'
-// import { connect } from 'react-redux'
-// import moment from 'moment';
 import { Popup, Card } from 'semantic-ui-react'
 
 class Skill extends React.Component {
+
+  componentDidMount() {
+    const token = localStorage.getItem('app_token')
+    console.log(token)
+    if (!token){
+      this.props.history.push('/login')
+    }
+  }
 
   handleClick = () => {
     this.props.history.push(`/viewprofile/${this.props.skill.user.id}`)

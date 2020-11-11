@@ -4,8 +4,9 @@ import { Menu, Input, Grid, Container, Image, Card, Popup } from 'semantic-ui-re
 import { fetchSkillsSuccess } from '../actions/skills';
 import { currentUser } from '../actions/user';
 import Skill from './Skill';
+import RandomSkill from './RandomSkill'
 import { searchSkills } from '../actions/search';
-import {Link} from 'react-router-dom';
+// import {Link} from 'react-router-dom';
 import './styling.css'
 
 // import GoogleMapReact from 'google-map-react';
@@ -23,7 +24,6 @@ import './styling.css'
 
 // const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
-
 class SkillContainer extends React.Component {
 
   // static defaultProps = {
@@ -35,7 +35,8 @@ class SkillContainer extends React.Component {
   // };
 
   state = {
-    fetched: false
+    fetched: false,
+    ranSkill: null
   }
 
 componentDidMount(){
@@ -58,10 +59,12 @@ componentDidMount(){
           fetch('http://localhost:3000/skills')
           .then(resp => resp.json())
           .then(skills => {
+            const ranSkill = skills[Math.round(Math.random()*this.props.skills.length)]
             // let newSkills = skills.filter(skill => skill.user_id === data.user.id)
             this.props.fetchSkillsSuccess(skills)
             this.setState({
-              fetched: true
+              fetched: true,
+              ranSkill: ranSkill
           })
           })
         }
@@ -88,8 +91,12 @@ componentDidMount(){
           ))
         }
 
-    render () {
-      let randomSkill = this.props.skills[Math.round(Math.random()*this.props.skills.length)]
+      renderRandomSkill = () => {
+        return <RandomSkill ranSkill={this.state.ranSkill} />
+      }
+        
+        render () {
+
         return (
             <div className='App'>
               <div style={{height: "150px", backgroundColor: 'slategrey'}}>
@@ -106,40 +113,18 @@ componentDidMount(){
                 <Grid.Row>
                     <Grid.Column width={10}>
                  <br></br>
-                  <Container centered style={{paddingTop: "30px"}}>
+                  <Container centered style={{paddingTop: "30px", border: "1px solid pink", height: 450, width: 700, overflow: "scroll"}}>
                    {this.renderSkills()}
                    </Container>
                  <br></br>
                  </Grid.Column>
                  <Grid.Column width={6} style={{paddingTop: "10px"}}>
-                 {this.state.fetched ?
-                  <Container centered>
-                      <h3 style={{textAlign: "left"}}>Featured Skill: </h3>
-                      <Popup content='click to view details or to signup' 
-                   trigger={<Card style={{width: "80%", border:"1px solid pink"}} as={Link} to={`/viewprofile/${randomSkill.user.id}`}>
-                   <Image src={randomSkill.video_url} wrapped ui={false} />
-                   <Card.Content>
-                     <Card.Header style={{fontSize: "20px", color: "black"}}>{randomSkill.name}</Card.Header>
-                     <Card.Meta>
-                       <span className='date' style={{fontSize: "15px", color: "slategrey"}}>{randomSkill.category}</span>
-                     </Card.Meta>
-                     <Card.Description style={{fontSize: "17px", color: "DARKSLATEGRAY"}}>
-                       {randomSkill.description}
-                     </Card.Description>
-                   </Card.Content>
-                   <Card.Content extra>
-                   <Image
-                        size='mini'
-                        src={`${randomSkill.user.image_url}`}
-                        style={{paddingRight: "10px"}}
-                      />  
-                         {randomSkill.user.username}
-                   </Card.Content>
-                 </Card>
-                      } 
-                      />
-                      </Container>
-                       : null}
+                 <Container>
+                   {this.state.fetched ?
+                   this.renderRandomSkill()
+                   :
+                   null}
+                   </Container>
                    </Grid.Column>
              </Grid.Row>
            </Grid>

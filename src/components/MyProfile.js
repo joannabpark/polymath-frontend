@@ -8,6 +8,7 @@ import MySkills from './MySkills'
 import { editUserSuccess } from "../actions/user";
 import Popup from 'reactjs-popup';
 import {Link} from 'react-router-dom'
+import toaster from "toasted-notes";
 
 class MyProfile extends React.Component {
 
@@ -57,6 +58,9 @@ class MyProfile extends React.Component {
         .then(resp => resp.json())
         .then(data => {
             this.props.editUserSuccess(data)
+            toaster.notify("success!", {
+              duration: 2000
+            })
             this.props.history.push(`/myprofile`)
         })
     }
@@ -85,7 +89,6 @@ renderMySkills = () => {
 //  }
 
   render() { 
- 
     return (
       <div className='App'>
       <div style={{height: "150px", backgroundColor: 'slategrey'}}>
@@ -198,7 +201,10 @@ renderMySkills = () => {
                             </Card>
                         </Grid.Column>
                         <Grid.Column style={{paddingTop: "35px"}} width={11}>
-                         {this.renderMySkills()} 
+                          {this.props.user.skills.length > 0 ?
+                         this.renderMySkills()
+                         : <h2>Add skills to get started!</h2>
+                         }
                         </Grid.Column>
                     </Grid.Row>
                  </Grid>
