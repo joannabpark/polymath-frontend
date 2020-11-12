@@ -132,9 +132,10 @@ submit = () => {
               <Card centered style={{width: "500px", border: "1px solid pink"}}>
                    <Card.Content>
                    <Image
+                         circular
                         size='mini'
                         src={`${this.props.message.sender.image_url}`}
-                        style={{float: "right"}}
+                        style={{float: "right", border: "1px solid pink"}}
                         as={Link}
                         to={`/viewprofile/${this.props.message.sender.id}`}
                       />                       

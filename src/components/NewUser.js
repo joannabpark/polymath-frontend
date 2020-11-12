@@ -102,7 +102,7 @@ class NewUser extends React.Component {
                            <Form.Input
                         icon='crosshairs'
                         iconPosition='left'
-                        placeholder="your zipcode"
+                        placeholder="city"
                          name="location"
                          type="location"
                         onChange={this.handleChange}

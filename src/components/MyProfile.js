@@ -231,7 +231,7 @@ renderMySkills = () => {
                         </Grid.Column>
                         <Grid.Column style={{paddingTop: "35px"}} width={11}>
                          <Carousel>
-                          {this.props.user.skills.length > 0 ? this.renderMySkills() : <h2>Add skills to get started!</h2>}
+                          {this.props.user.skills ? this.renderMySkills() : <h2>Add skills to get started!</h2>}
                          </Carousel>
                         </Grid.Column>
                  </Grid>
