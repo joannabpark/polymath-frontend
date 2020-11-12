@@ -11,6 +11,7 @@ class ViewSkills extends React.Component {
   state = {
     id: "",
     date: "",
+    is_completed: false,
     skill_name: this.props.skill.name,
     description: this.props.skill.description,
     provider_id: this.props.skill.user_id,
@@ -44,6 +45,7 @@ class ViewSkills extends React.Component {
             body: JSON.stringify({
                     id: this.state.id,
                     date: this.state.date,
+                    is_completed: false,
                     description: this.state.description,
                     provider_id: this.state.provider_id,
                     receiver_id: this.state.receiver_id,
@@ -71,7 +73,7 @@ class ViewSkills extends React.Component {
     render() {
         return ( 
           <Container style={{paddingBottom: "15px"}}>
-            <Card style={{border: "1px solid pink"}} fluid centered>
+            <Card style={{border: "1px solid pink", height: 560}} fluid centered>
              <img src={this.props.skill.video_url} height={300}/>
               <Card.Content>
                  <Card.Header style={{fontSize: "35px", color: "black"}}>{this.props.skill.name}</Card.Header>

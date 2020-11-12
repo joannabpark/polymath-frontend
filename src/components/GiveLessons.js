@@ -15,7 +15,6 @@ class GiveLessons extends React.Component {
   }
 
     renderProvidingLessons = () => {
-    
         return this.props.givelessons.map((lesson, index) => {
             return <GiveLesson lesson={lesson} key={index} history={this.props.history} />
         })

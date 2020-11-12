@@ -7,6 +7,7 @@ import { updateUserProviderPoints } from '../actions/user'
 import { updateUserviewReceiverPoints } from '../actions/userview'
 import { deleteLessonSuccess } from '../actions/givelessons'
 import toaster from "toasted-notes";
+import { confirmAlert } from 'react-confirm-alert'; // Import
 import "./styling.css";
 
 const gapi = window.gapi
@@ -63,10 +64,9 @@ handleUserViewPoints = () => {
     .then(data => {
       console.log(data)
       this.props.updateUserviewReceiverPoints(data)
-      this.props.history.push(`/myprofile/providinglessons`)
+      // this.props.history.push(`/myprofile/providinglessons`)
   })
 }
-
 
     deleteLesson = (id) => {
         const reqObj = {
@@ -80,11 +80,12 @@ handleUserViewPoints = () => {
             toaster.notify("lesson completed! You gained 1 point.", {
               duration: 2000
             })
-            this.props.history.push(`/myprofile/providinglessons`)
+            // this.props.history.push(`/myprofile/providinglessons`)
         })
       }
 
       handleClick = () => {
+        debugger
         gapi.load('client:auth2', () => {
           console.log('loaded client')
     
@@ -150,13 +151,35 @@ handleUserViewPoints = () => {
         })
       }
 
+      submit = () => {
+        confirmAlert({
+          title: 'Confirm to complete',
+          message: 'Are you done with this lesson?',
+          buttons: [
+            {
+              label: 'Yes',
+              onClick: () => {
+                this.handleUserPoints();
+                this.props.history.push('/myprofile/providinglessons');
+              }
+            },
+            {
+              label: 'No',
+              onClick: () => {this.props.history.push("/myprofile/providinglessons")}
+            }
+          ]
+        });
+      };
+      
+
     render() {
     return ( 
-      <Popup content="click to view provider profile" trigger={
         <Container style={{paddingBottom: "15px"}}>
-            <Card as={Link} to={`/viewprofile/${this.props.lesson.receiver_id}`} style={{border: "1px solid pink", width:"50%"}} fluid centered>
+            <Card style={{border: "1px solid pink", width:"50%"}} fluid centered>
               <Card.Content>
-                <Card.Header style={{fontSize: "35px", color: "black"}}>{this.props.lesson.skill_name}  </Card.Header>
+              <Popup content="click to view provider profile" trigger={
+                <Card.Header as={Link} to={`/viewprofile/${this.props.lesson.receiver_id}`} style={{fontSize: "35px", color: "black"}}>{this.props.lesson.skill_name}  </Card.Header>}
+                position='top center'/>
                 <Card.Meta style={{fontSize: "15px", color: "slategrey"}}>{moment.tz(`${this.props.lesson.date}`, 'Europe/Dublin').format('LLL')}</Card.Meta>
                 <Card.Description style={{fontSize: "18px", color: "slategrey"}}>
                 <h3 style={{fontStyle: "bold", color: "lightgrey", paddingBottom:"10px"}}>Skill description:</h3> {this.props.lesson.description}
@@ -169,7 +192,7 @@ handleUserViewPoints = () => {
                      <Button.Content hidden style={{ color: 'deeppink'}}><i className="google icon"></i></Button.Content>
                </Button>
                <br></br>
-                    <Button color='pink' fluid size='large' animated='fade' onClick={() =>  this.handleUserPoints(this.props.user.id)} >
+                    <Button color='pink' fluid size='large' animated='fade' onClick={this.submit} >
                       <Button.Content visible style={{ color: 'lightgrey'}}>done?</Button.Content>
                       <Button.Content hidden style={{ color: 'lightgrey'}}><i className="check icon"></i></Button.Content>
                    </Button>
@@ -177,7 +200,6 @@ handleUserViewPoints = () => {
               </Card.Content>
             </Card>
         </Container>
-     } position='top center'/>
       )
     }
   }

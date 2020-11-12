@@ -2,10 +2,11 @@ import React from 'react'
 import { Button, Card, Form, Container } from 'semantic-ui-react'
 import { deleteSkillSuccess } from '../actions/indSkill'
 import { connect } from 'react-redux'
-// import { editSkillSuccess } from "../actions/indSkill";
-import Popup from 'reactjs-popup';
 import './styling.css'
 import {Link} from 'react-router-dom'
+import toaster from "toasted-notes";
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import "./styling.css";
 
 class MySkills extends React.Component {
 
@@ -75,53 +76,44 @@ componentDidMount() {
       .then(resp => resp.json())
       .then(data => {
         this.props.deleteSkillSuccess(id)
+        toaster.notify("skill has been deleted", {
+          duration: 2000
+        })
         // this.props.history.push(`/myprofile`)
     })
 }
 
+submit = () => {
+  confirmAlert({
+    title: 'Confirm to delete',
+    message: 'Are you sure you wish to delete this skill?',
+    buttons: [
+      {
+        label: 'Yes',
+        onClick: () => {
+          this.removeSkill(this.props.skill.id);
+          this.props.history.push('/myprofile');
+        }
+      },
+      {
+        label: 'No',
+        onClick: () => {this.props.history.push("/myprofile")}
+      }
+    ]
+  });
+};
+
     render() {
         return ( 
           <Container style={{paddingBottom: "15px"}}>
-            <Card style={{border: "1px solid pink"}} fluid centered>
+            <Card style={{border: "1px solid pink", height: 560}} fluid centered>
              <img src={this.props.skill.video_url} height={300}/>
               <Card.Content>
-              <Card.Header>
-             <Popup trigger={<a style={{fontSize: "35px", color: "black"}}>{this.props.skill.name}</a>} position="right center">
-                   <Form onSubmit={this.handleSubmit}>
-                         <Form.Group widths='equal'>
-                                <input
-                               as={<Form.Input />}
-                               type="text" 
-                                name="name" 
-                                placeholder="name"
-                                value={this.state.name}
-                                 onChange={this.handleChange}
-                                  />
-                               <div style={{textAlign: "center"}}>
-                                 <Button>Save</Button>
-                                </div>
-                           </Form.Group>
-                       </Form>
-                   </Popup>
+              <Card.Header style={{fontSize: "35px", color: "black"}}>
+              {this.props.skill.name}
                  </Card.Header>
-                <Card.Meta>
-                <Popup trigger={<a style={{fontSize: "15px", color: "slategrey"}}><i aria-hidden="true" class="tag icon"></i>{this.props.skill.category}</a>} position="right center">
-                     <Form onSubmit={this.handleSubmit}>
-                          <Form.Group widths='equal'>
-                                 <input
-                                 as={<Form.Input />}
-                                  type="text" 
-                                  name="category" 
-                                  placeholder="category"
-                                  value={this.state.category}
-                                   onChange={this.handleChange}
-                                   />
-                                   <div style={{textAlign: "center"}}>
-                                  <Button>Save</Button>
-                                  </div>
-                        </Form.Group>
-                       </Form>
-                   </Popup>
+                <Card.Meta style={{fontSize: "15px", color: "slategrey"}}>
+                <a ><i aria-hidden="true" class="tag icon"></i>{this.props.skill.category}</a>
                 </Card.Meta>
                 <Card.Description style={{fontSize: "18px", color: "slategrey"}}>
                  <h3 style={{fontStyle: "bold", color: "lightgrey", paddingBottom:"10px"}}>Skill description:</h3> {this.props.skill.description}
@@ -133,9 +125,9 @@ componentDidMount() {
                      <Button.Content visible style={{  color: 'deeppink'}}>edit skill</Button.Content>
                       <Button.Content hidden style={{ color: 'deeppink'}}><i aria-hidden="true" className="edit icon"></i></Button.Content>
                  </Button>  
-                 <Button onClick={() => this.removeSkill(this.props.skill.id)} style={{ border:"1px solid pink", backgroundColor: 'lightgrey'}} fluid size='large' animated='fade'>
+                 <Button onClick={this.submit} style={{ border:"1px solid pink", backgroundColor: 'lightgrey'}} fluid size='large' animated='fade'>
                      <Button.Content visible style={{ color: 'deeppink'}}>remove skill</Button.Content>
-                      <Button.Content hidden style={{ color: 'deeppink'}}><i aria-hidden="true" className="delete icon"></i></Button.Content>
+                      <Button.Content hidden style={{ color: 'deeppink'}}><i aria-hidden="true" className="trash icon"></i></Button.Content>
                  </Button> 
                 </div>
               </Card.Content>

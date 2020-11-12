@@ -8,6 +8,8 @@ import ViewSkills from './ViewSkills'
 import Popup from 'reactjs-popup';
 import toaster from "toasted-notes";
 import "./styling.css";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from 'react-responsive-carousel';
 
 class ViewProfile extends React.Component {
 
@@ -106,19 +108,22 @@ class ViewProfile extends React.Component {
            </div>
        <Container>
           <Grid divided="vertically">
-             <Grid.Row>
                 <Grid.Column width={5}>
-                    <Card fluid style={{borderRadius:"5px", marginTop:"40px", textAlign: "center", border:"1px solid pink"}}>
-                        <Image src={this.props.userview.image_url} wrapped ui={false} />
+                    <Card fluid style={{height: 560, overflow: "hidden", borderRadius:"5px", marginTop:"40px", textAlign: "center", border:"1px solid pink"}}>
+                    <img height={270} src={this.props.userview.image_url} wrapped ui={false} />
                         <Card.Content>
                         <Card.Header style={{fontSize: "35px", color: "black"}}>{this.props.userview.first_name}</Card.Header>
                         <Card.Meta>
                             <span className='date' style={{fontSize: "15px", color: "slategrey"}}>Member since: {moment(this.props.userview.created_at).format('MM/DD/YYYY')}</span>
                         </Card.Meta>
                         <Card.Description>
+                        <a style={{fontSize: "15px", color: "slategrey"}}><i aria-hidden="true" class="user icon"></i>username: {this.props.userview.username}</a>
+                           <br></br><br></br>
                              <a style={{fontSize: "15px", color: "slategrey"}}><i aria-hidden="true" class="at icon"></i>{this.props.userview.email}</a>
                             <br></br>
                             <a style={{fontSize: "15px", color: "slategrey"}}><i aria-hidden="true" class="location arrow icon"></i>location: {this.props.userview.location}</a>
+                            <br></br><br></br>
+                            <a style={{fontSize: "25px", color: "slategrey"}}>points: {this.props.userview.points}</a>
                         </Card.Description>
                         </Card.Content>
                         <Card.Content extra>
@@ -141,9 +146,10 @@ class ViewProfile extends React.Component {
                     </Card>
                 </Grid.Column>
                 <Grid.Column style={{paddingTop: "35px"}} width={11}>
+                  <Carousel>
                   {this.state.fetched ? this.renderSkills() : null}
+                  </Carousel>
                </Grid.Column>
-            </Grid.Row>
          </Grid>
         </Container>
       </div>

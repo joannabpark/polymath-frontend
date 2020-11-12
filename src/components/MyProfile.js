@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux'
-// import { Link } from "react-router-dom";
 import { deleteUser } from '../actions/user'
 import moment from 'moment';
 import { Grid, Card, Image, Form, Button, Container } from 'semantic-ui-react'
@@ -9,6 +8,10 @@ import { editUserSuccess } from "../actions/user";
 import Popup from 'reactjs-popup';
 import {Link} from 'react-router-dom'
 import toaster from "toasted-notes";
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import './styling.css'
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from 'react-responsive-carousel';
 
 class MyProfile extends React.Component {
 
@@ -18,6 +21,7 @@ class MyProfile extends React.Component {
         email: "",
         location: "",
         image_url: "",
+        autoPlay: true
     }
 
     componentDidMount() {
@@ -58,7 +62,7 @@ class MyProfile extends React.Component {
         .then(resp => resp.json())
         .then(data => {
             this.props.editUserSuccess(data)
-            toaster.notify("success!", {
+            toaster.notify("your profile has been updated", {
               duration: 2000
             })
             this.props.history.push(`/myprofile`)
@@ -84,9 +88,25 @@ renderMySkills = () => {
     })
  }
 
-//  handleClick = () => {
-//      this.props.renderMyLessons()
-//  }
+ submit = () => {
+  confirmAlert({
+    title: 'Confirm to delete',
+    message: 'Are you sure you wish to delete your account?',
+    buttons: [
+      {
+        label: 'Yes',
+        onClick: () => {
+          this.deleteUser(this.props.user.id);
+          this.props.history.push('/login');
+        }
+      },
+      {
+        label: 'No',
+        onClick: () => {this.props.history.push("/myprofile")}
+      }
+    ]
+  });
+};
 
   render() { 
     return (
@@ -98,10 +118,9 @@ renderMySkills = () => {
          </div>
       <Container>
             <Grid divided="vertically">
-                <Grid.Row>
                     <Grid.Column width={5}>
-                            <Card fluid style={{marginTop:"40px", textAlign: "center", border:"1px solid pink"}}>
-                              <Image src={this.props.user.image_url} wrapped ui={false} />
+                            <Card fluid style={{height: 580, overflow: "hidden", marginTop:"35px", textAlign: "center", border:"1px solid pink"}}>
+                              <img height={270} src={this.props.user.image_url} wrapped ui={false} />
                                 <Popup trigger={<button className="button ui" style={{color: "hotpink"}}>upload new profile pic</button>} position="top">
                                 <Form success onSubmit={this.handleSubmit} >
                                     <Form.Group>
@@ -115,7 +134,10 @@ renderMySkills = () => {
                                         />
                                         <br></br>
                                         <div style={{textAlign: "center"}}>
-                                          <Button>Save</Button>
+                                        <Button color='pink' fluid size='large' animated='fade'>
+                                          <Button.Content visible style={{ color: 'lightgrey'}}>save</Button.Content>
+                                          <Button.Content hidden style={{ color: 'lightgrey'}}><i aria-hidden="true" className="save icon"></i></Button.Content>
+                                       </Button> 
                                       </div>
                                         </Form.Group>
                                    </Form>
@@ -135,7 +157,10 @@ renderMySkills = () => {
                                              onChange={this.handleChange}
                                         />
                                         <div style={{textAlign: "center"}}>
-                                          <Button>Save</Button>
+                                        <Button color='pink' fluid size='large' animated='fade'>
+                                           <Button.Content visible style={{ color: 'lightgrey'}}>save</Button.Content>
+                                          <Button.Content hidden style={{ color: 'lightgrey'}}><i aria-hidden="true" className="save icon"></i></Button.Content>
+                                        </Button> 
                                       </div>
                                         </Form.Group>
                                    </Form>
@@ -145,6 +170,8 @@ renderMySkills = () => {
                                     <span className='date' style={{fontSize: "15px", color: "slategrey"}}>Member since: {moment(this.props.user.created_at).format('MM/DD/YYYY')}</span>
                                 </Card.Meta>
                                 <Card.Description>
+                                <a style={{fontSize: "15px", color: "slategrey"}}><i aria-hidden="true" class="user icon"></i>username: {this.props.user.username}</a>
+                                 <br></br>
                                 <Popup trigger={<a style={{fontSize: "15px", color: "slategrey"}}><i aria-hidden="true" class="at icon"></i>{this.props.user.email}</a>} position="right center">
                                 <Form onSubmit={this.handleSubmit}>
                                     <Form.Group widths='equal'>
@@ -157,7 +184,10 @@ renderMySkills = () => {
                                              onChange={this.handleChange}
                                         />
                                         <div style={{textAlign: "center"}}>
-                                          <Button>Save</Button>
+                                     <Button color='pink' fluid size='large' animated='fade'>
+                                         <Button.Content visible style={{ color: 'lightgrey'}}>save</Button.Content>
+                                        <Button.Content hidden style={{ color: 'lightgrey'}}><i aria-hidden="true" className="save icon"></i></Button.Content>
+                                      </Button> 
                                       </div>
                                         </Form.Group>
                                    </Form>
@@ -175,38 +205,35 @@ renderMySkills = () => {
                                              onChange={this.handleChange}
                                         />
                                         <div style={{textAlign: "center"}}>
-                                          <Button>Save</Button>
+                                        <Button color='pink' fluid size='large' animated='fade'>
+                                          <Button.Content visible style={{ color: 'lightgrey'}}>save</Button.Content>
+                                          <Button.Content hidden style={{ color: 'lightgrey'}}><i aria-hidden="true" className="save icon"></i></Button.Content>
+                                       </Button> 
                                       </div>
                                         </Form.Group>
                                    </Form>
                                      </Popup>
-                                     <br></br><br></br><br></br>
-                                     <a style={{fontSize: "20px", color: "slategrey"}}>points: {this.props.user.points}</a>
+                                     <br></br><br></br>
+                                     <a style={{fontSize: "25px", color: "slategrey"}}>points: {this.props.user.points}</a>
                                 </Card.Description>
-                                
                                 </Card.Content>
                                 <Card.Content extra>
-                                     <div style={{textAlign: "center"}}>
-                                     <Button color='pink' fluid size='large' animated='fade' as={Link} to='/myprofile/newskill'>
-                                        <Button.Content visible>add new skill</Button.Content>
-                                        <Button.Content hidden style={{ color: 'hotpink'}}><i aria-hidden="true" className="plus icon"></i></Button.Content>
+                                     <Button style={{marginBottom: "5px"}} color='pink' fluid size='medium' animated='fade' as={Link} to='/myprofile/newskill'>
+                                        <Button.Content visible style={{ color: 'lightgrey'}}>add new skill</Button.Content>
+                                        <Button.Content hidden style={{ color: 'lightgrey'}}><i aria-hidden="true" className="plus icon"></i></Button.Content>
                                     </Button>  
-                                    <br></br>
-                                    <Button color='pink' fluid size='large' animated='fade' onClick={() => this.deleteUser(this.props.user.id)}>
-                                        <Button.Content visible>delete account</Button.Content>
-                                        <Button.Content hidden style={{ color: 'hotpink'}}><i aria-hidden="true" className="delete icon"></i></Button.Content>
+                                    <Button style={{marginBottom: 20}} color='pink' fluid size='medium' animated='fade' onClick={this.submit}>
+                                        <Button.Content visible style={{ color: 'lightgrey'}}>delete account</Button.Content>
+                                        <Button.Content hidden style={{ color: 'lightgrey'}}><i aria-hidden="true" className="delete icon"></i></Button.Content>
                                     </Button>  
-                                      </div>
                                 </Card.Content>
                             </Card>
                         </Grid.Column>
                         <Grid.Column style={{paddingTop: "35px"}} width={11}>
-                          {this.props.user.skills.length > 0 ?
-                         this.renderMySkills()
-                         : <h2>Add skills to get started!</h2>
-                         }
+                         <Carousel>
+                          {this.props.user.skills.length > 0 ? this.renderMySkills() : <h2>Add skills to get started!</h2>}
+                         </Carousel>
                         </Grid.Column>
-                    </Grid.Row>
                  </Grid>
              </Container>
         </div>

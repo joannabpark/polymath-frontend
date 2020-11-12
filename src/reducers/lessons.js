@@ -10,6 +10,9 @@ const lessons = (state=[], action) => {
         case "DELETE_LESSON_SUCCESS":
           const newLessons = state.filter(obj => obj.id !== action.lessons)
              return newLessons
+         case "LESSON_COMPLETED":
+          //  debugger
+           return state
           default:
             return state
     }

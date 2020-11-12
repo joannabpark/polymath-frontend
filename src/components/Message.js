@@ -2,10 +2,13 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { newMessageSuccess } from '../actions/messages'
 import { repliedStatusUpdate } from '../actions/messages'
+import { deleteMessageSuccess } from '../actions/messages'
 import moment from 'moment-timezone';
 import { Form, Button, Card, Image, Icon } from 'semantic-ui-react'
 import Popup from 'reactjs-popup';
 import toaster from "toasted-notes";
+import {Link} from 'react-router-dom'
+import { confirmAlert } from 'react-confirm-alert'; // Import
 import "./styling.css";
 
 class Message extends React.Component {
@@ -88,6 +91,42 @@ handleReplied = () => {
   })
 }
 
+deleteMessage = (id) => {
+  const reqObj = {
+      method: 'DELETE', 
+    }
+    
+    fetch (`http://localhost:3000/messages/${id}`, reqObj)
+    .then(resp => resp.json())
+    .then(data => {
+      this.props.deleteMessageSuccess(id)
+      toaster.notify("message has been deleted", {
+        duration: 2000
+      })
+      this.props.history.push(`/inbox`)
+  })
+}
+
+submit = () => {
+  confirmAlert({
+    title: 'Confirm to complete',
+    message: 'Are you sure you wish to delete this message?',
+    buttons: [
+      {
+        label: 'Yes',
+        onClick: () => {
+          this.deleteMessage(this.props.message.id);
+          this.props.history.push('/inbox');
+        }
+      },
+      {
+        label: 'No',
+        onClick: () => {this.props.history.push("/inbox")}
+      }
+    ]
+  });
+};
+
     render() {
         return ( 
               <Card centered style={{width: "500px", border: "1px solid pink"}}>
@@ -96,6 +135,8 @@ handleReplied = () => {
                         size='mini'
                         src={`${this.props.message.sender.image_url}`}
                         style={{float: "right"}}
+                        as={Link}
+                        to={`/viewprofile/${this.props.message.sender.id}`}
                       />                       
                       <Card.Header style={{textAlign: "left", fontSize: "20px", color: "black"}}>from {this.props.message.sender.first_name}:</Card.Header>
                      <Card.Meta style={{textAlign: "left", fontSize: "15px", color: "slategrey"}}>sent on {moment.tz(`${this.props.message.created_at}`, 'Europe/Dublin').format('lll')}</Card.Meta>
@@ -119,8 +160,11 @@ handleReplied = () => {
                                     </Button>                                      
                                     </Form>
                                 </Popup>
-                                <p>Replied? {this.props.message.replied ? <Icon name='check' /> : null }
-                                </p> 
+                                <p>Replied? {this.props.message.replied ? <Icon name='check' /> : null }</p> 
+                                <Button onClick={this.submit} color='pink' size='mini' animated='fade'>
+                                     <Button.Content visible style={{color: "lightgrey"}}><i aria-hidden="true" className="trash icon"></i></Button.Content>
+                                      <Button.Content hidden style={{ color: 'lightgrey'}}><i aria-hidden="true" className="delete icon"></i></Button.Content>
+                                 </Button> 
                       </Card.Content>
                </Card>
           )
@@ -137,7 +181,8 @@ handleReplied = () => {
 
 const mapDispatchToProps = {
     newMessageSuccess,
-    repliedStatusUpdate
+    repliedStatusUpdate,
+    deleteMessageSuccess
   }  
 
 export default connect(mapStateToProps, mapDispatchToProps)(Message);

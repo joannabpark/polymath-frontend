@@ -1,14 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
-// import moment from 'moment';
 import moment from 'moment-timezone';
 import { Container, Button, Popup, Card } from 'semantic-ui-react'
-// import Popup from 'reactjs-popup';
 import {Link} from 'react-router-dom';
 import { deleteLessonSuccess } from '../actions/lessons'
 import { updateUserPoints } from '../actions/user'
 import { updateUserviewPoints } from '../actions/userview'
 import toaster from "toasted-notes";
+import { confirmAlert } from 'react-confirm-alert'; // Import
 import "./styling.css";
 
 const gapi = window.gapi
@@ -51,7 +50,6 @@ class Lesson extends React.Component {
 }
 
 handleUserViewPoints = () => {
-  // debugger
   const reqObj = {
       method: 'PATCH', 
       headers: {
@@ -67,9 +65,31 @@ handleUserViewPoints = () => {
     .then(data => {
       console.log(data)
       this.props.updateUserviewPoints(data)
-      this.props.history.push(`/myprofile/receivinglessons`)
+      // debugger
+      // this.props.history.push(`/myprofile/receivinglessons`)
   })
 }
+
+// handleLesson = () => {
+//   const reqObj = {
+//     method: 'PATCH', 
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify({
+//         is_completed: true
+//     }) 
+//   }
+
+//   fetch (`http://localhost:3000/lessons/${this.props.lesson.id}`, reqObj)
+//   .then(resp => resp.json())
+//   .then(data => {
+//     console.log(data)
+//     this.props.lessonCompleted(data)
+//     debugger
+//     // this.props.history.push(`/myprofile/receivinglessons`)
+// })
+// }
 
 deleteLesson = (id) => {
   const reqObj = {
@@ -83,13 +103,12 @@ deleteLesson = (id) => {
       toaster.notify("lesson completed! 1 point has been deducted.", {
         duration: 2000
       })
-      this.props.history.push(`/myprofile/receivinglessons`)
+      // this.props.history.push(`/myprofile/receivinglessons`)
     // debugger
   })
 }
 
 handleClick = () => {
-  debugger
   gapi.load('client:auth2', () => {
     console.log('loaded client')
 
@@ -155,15 +174,34 @@ handleClick = () => {
   })
 }
 
+submit = () => {
+  confirmAlert({
+    title: 'Confirm to complete',
+    message: 'Are you done with this lesson?',
+    buttons: [
+      {
+        label: 'Yes',
+        onClick: () => {
+          this.handleUserPoints();
+          this.props.history.push('/myprofile/receivinglessons');
+        }
+      },
+      {
+        label: 'No',
+        onClick: () => {this.props.history.push("/myprofile/receivinglessons")}
+      }
+    ]
+  });
+};
 
     render() {
     return ( 
-      <Popup content="click to view provider profile" trigger={
-            <Container style={{paddingBottom: "15px"}}>
-                <Card as={Link} to={`/viewprofile/${this.props.lesson.provider_id}`} style={{border: "1px solid pink", width:"50%"}} fluid centered>
+            <Container style={{paddingBottom: "10px"}}>
+                <Card style={{border: "1px solid pink", width:"50%"}} fluid centered>
                 {/* <img src={this.props.lesson.video_url} height={300}/> */}
                   <Card.Content>
-                    <Card.Header style={{fontSize: "35px", color: "black"}}>{this.props.lesson.skill_name}  </Card.Header>
+                  <Popup content="click to view provider profile" trigger={
+                    <Card.Header as={Link} to={`/viewprofile/${this.props.lesson.provider_id}`} style={{fontSize: "35px", color: "black"}}>{this.props.lesson.skill_name}  </Card.Header>} position='top center'/>
                     <Card.Meta style={{fontSize: "15px", color: "slategrey"}}>{moment.tz(`${this.props.lesson.date}`, 'Europe/Dublin').format('LLL')}</Card.Meta>
                     <Card.Description style={{fontSize: "18px", color: "slategrey"}}>
                     <h3 style={{fontStyle: "bold", color: "lightgrey", paddingBottom:"10px"}}>Skill description:</h3> {this.props.lesson.description}
@@ -176,7 +214,7 @@ handleClick = () => {
                               <Button.Content hidden style={{ color: 'deeppink'}}><i className="google icon"></i></Button.Content>
                         </Button>
                         <br></br>
-                          <Button color='pink' fluid size='large' animated='fade' onClick={() =>  this.handleUserPoints(this.props.user.id)} >
+                          <Button color='pink' fluid size='large' animated='fade' onClick={this.submit}>
                             <Button.Content visible style={{ color: 'lightgrey'}}>done?</Button.Content>
                             <Button.Content hidden style={{ color: 'lightgrey'}}><i className="check icon"></i></Button.Content>
                         </Button>
@@ -202,8 +240,6 @@ handleClick = () => {
 //        </div>
 //     </div>
 //  </Container>
- 
-} position='top center'/>
         
       )
     }
@@ -213,14 +249,14 @@ handleClick = () => {
     return {
       lessons: state.lessons,
       user: state.user,
-      userview: state.userview
+      userview: state.userview,
     }
   }
   
   const mapDispatchToProps = {
-    deleteLessonSuccess,
     updateUserPoints,
-    updateUserviewPoints
+    updateUserviewPoints,
+    deleteLessonSuccess
   }
   
   export default connect(mapStateToProps, mapDispatchToProps)(Lesson)

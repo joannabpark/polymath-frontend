@@ -12,3 +12,10 @@ export const newLessonSuccess = (lessons) => {
       lessons: lessons
     }
   }
+
+  // export const lessonCompleted = (lesson) => {
+  //   return {
+  //     type: 'LESSON_COMPLETED',
+  //      lesson: lesson
+  //   }
+  // }

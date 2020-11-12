@@ -1,12 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Menu, Input, Grid, Container, Image, Card, Popup } from 'semantic-ui-react';
+import { Menu, Input, Grid, Container } from 'semantic-ui-react';
 import { fetchSkillsSuccess } from '../actions/skills';
 import { currentUser } from '../actions/user';
 import Skill from './Skill';
 import RandomSkill from './RandomSkill'
-import { searchSkills } from '../actions/search';
-// import {Link} from 'react-router-dom';
+import { searchSkills, resetSkills } from '../actions/search';
 import './styling.css'
 
 // import GoogleMapReact from 'google-map-react';
@@ -59,9 +58,10 @@ componentDidMount(){
           fetch('http://localhost:3000/skills')
           .then(resp => resp.json())
           .then(skills => {
+            this.props.resetSkills()
+            this.props.fetchSkillsSuccess(skills)
             const ranSkill = skills[Math.round(Math.random()*this.props.skills.length)]
             // let newSkills = skills.filter(skill => skill.user_id === data.user.id)
-            this.props.fetchSkillsSuccess(skills)
             this.setState({
               fetched: true,
               ranSkill: ranSkill
@@ -82,9 +82,8 @@ componentDidMount(){
   }
 
     renderSkills = () => {
-      // debugger
       let skillsList = this.props.skills.filter(skills => skills.name.toLowerCase().includes(this.props.search.toLowerCase()) || skills.category.toLowerCase().includes(this.props.search.toLowerCase()) || skills.description.toLowerCase().includes(this.props.search.toLowerCase()))
-      let newSkillsList = skillsList.filter(skill => skill.user.id !== this.props.user.id)
+      let newSkillsList = skillsList.filter(skill => skill.user_id !== this.props.user.id)
       // let newNewSkillsList = newSkillsList.filter(obj => obj.lessons[0] === undefined)
       return newSkillsList.map((skill, index) => (
         <Skill key={index} skill={skill} history={this.props.history} />
@@ -104,7 +103,7 @@ componentDidMount(){
               </div>
               <div className="stack-top">
                 <div style={{paddingTop: "6px"}}>
-                 <Menu.Item><a style={{fontSize: "18px", fontFamily: "system-ui", color: "white"}}>Enter skill you want to learn: </a>
+                 <Menu.Item><a style={{fontSize: "18px", fontFamily: "system-ui", color: "lightgrey"}}>Enter a skill you wish to learn: </a>
                      <Input onChange={this.handleChange} icon='search' placeholder='Search...' />
                    </Menu.Item>
                   </div>
@@ -113,7 +112,8 @@ componentDidMount(){
                 <Grid.Row>
                     <Grid.Column width={10}>
                  <br></br>
-                  <Container centered style={{paddingTop: "30px", border: "1px solid pink", height: 450, width: 700, overflow: "scroll"}}>
+                  <Container centered 
+                  style={{paddingTop: "30px", border: "1px solid pink", height: 450, width: 700, overflow: "scroll"}}>
                    {this.renderSkills()}
                    </Container>
                  <br></br>
@@ -161,7 +161,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   fetchSkillsSuccess,
   currentUser,
-  searchSkills
+  searchSkills,
+  resetSkills
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SkillContainer)

@@ -4,8 +4,10 @@ const userview = (state={}, action) => {
          case "FETCH_USER_SUCCESS":
              return action.userview
          case "UPDATE_USERVIEW_POINTS":
-              return {...state, points: state.points + 1}
+           return {...state, points: state.points + 1}
+          //  debugger
           case "UPDATE_USERVIEW_RECEIVER_POINTS":
+            // debugger
               return {...state, points: state.points - 1}
         default:
             return state

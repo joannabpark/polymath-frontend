@@ -20,4 +20,12 @@ export const newMessageSuccess = (messages) => {
     }
   }
 
+  export const deleteMessageSuccess = (messages) => {
+    return {
+      type: 'DELETE_MESSAGE_SUCCESS',
+      messages: messages
+    }
+  }
+  
+
   

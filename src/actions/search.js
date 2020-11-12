@@ -4,3 +4,9 @@ export const searchSkills = (search) => {
       search: search
     }
   }
+
+  export const resetSkills = () => {
+    return {
+      type: 'RESET_SKILLS'
+    }
+  }

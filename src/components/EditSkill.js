@@ -56,7 +56,7 @@ class EditSkill extends React.Component {
         .then(data => {
           console.log(data)
             this.props.editSkillSuccess(data)
-            toaster.notify("success!", {
+            toaster.notify("skill has been updated", {
                 duration: 2000
               })
             this.props.history.push(`/myprofile`)

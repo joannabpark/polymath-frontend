@@ -15,7 +15,7 @@ class NewUser extends React.Component {
       points: 1,
       location: "",
       image_url: "https://thumbs.dreamstime.com/b/default-avatar-profile-image-vector-social-media-user-icon-potrait-182347582.jpg",
-      error: null
+      errors: null
     };
   
     handleChange = (e) => {
@@ -63,6 +63,7 @@ class NewUser extends React.Component {
                  </Header>
                  <Form size='large' onSubmit={this.handleSubmit}>
                   <Segment stacked>
+                  { this.state.error && <h4 style={{ color: 'red'}}>{this.state.error}</h4> }
                      <Form.Input
                         icon='user'
                         iconPosition='left'
@@ -122,8 +123,8 @@ class NewUser extends React.Component {
                          <Button.Content hidden style={{ color: 'hotpink'}}><i aria-hidden="true" className="plus icon"></i></Button.Content>
                      </Button>   */}
                      <Button type="submit" color='pink' fluid size='large' animated='fade'>
-                         <Button.Content visible>Continue</Button.Content>
-                         <Button.Content hidden style={{ color: 'hotpink'}}>Continue</Button.Content>
+                         <Button.Content visible style={{ color: 'lightgrey'}}>Continue</Button.Content>
+                         <Button.Content hidden style={{ color: 'lightgrey'}}><i className="long arrow alternate right icon"></i></Button.Content>
                      </Button>   
                   </div>
                   </Segment>

@@ -12,8 +12,8 @@ import "./styling.css";
 class Login extends React.Component {
 
   state={
-    username: 'jojo',
-    password: '123',
+    username: '',
+    password: '',
     error: null
   }
 
@@ -116,8 +116,8 @@ class Login extends React.Component {
                        placeholder="password" 
                  />
                       <Button color='pink' fluid size='large' animated='fade'>
-                         <Button.Content visible><i aria-hidden="true" className="sign in icon"></i></Button.Content>
-                         <Button.Content hidden style={{ color: 'hotpink'}}>login</Button.Content>
+                         <Button.Content visible style={{ color: 'lightgrey'}}><i aria-hidden="true" className="sign in icon"></i></Button.Content>
+                         <Button.Content hidden style={{ color: 'lightgrey'}}>login</Button.Content>
                      </Button>         
                    </Segment>
                  </Form>

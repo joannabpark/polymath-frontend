@@ -3,9 +3,8 @@ import { Popup, Card, Container, Image, } from 'semantic-ui-react'
 import {Link} from 'react-router-dom';
 
 const RandomSkill = (props) => {
-// debugger
 return (
-  <Container centered>
+  <Container centered style={{position:"absolute", minWidth: 200}}>
   <h3 style={{textAlign: "left"}}>Featured Skill: </h3>
        <Popup content='click to view details or to signup' 
          trigger={<Card style={{width: "80%", border:"1px solid pink"}} as={Link} to={`/viewprofile/${props.ranSkill.user.id}`}>

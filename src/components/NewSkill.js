@@ -56,7 +56,7 @@ class NewSkill extends React.Component {
               })
             } else {
               this.props.addSkillSuccess(data)
-              toaster.notify("success!", {
+              toaster.notify("skill has been added", {
                 duration: 2000
               })
               this.props.history.push(`/myprofile`)
